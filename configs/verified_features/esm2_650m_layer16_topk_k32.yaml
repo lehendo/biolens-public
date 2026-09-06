@@ -1,0 +1,804 @@
+# Verified/debunked SAE feature -> GO-term claims.
+#
+# GO probing (biolens.eval.probing) computes single-feature AUROC automatically —
+# a high AUROC is a CANDIDATE for "this feature encodes this concept," not proof.
+# Every entry below was checked by pulling the feature's real top-activating
+# sequences (scripts/inspect_features.py) and cross-referencing their actual
+# UniProt annotations (via the public UniProt REST API, not memory).
+# See the module docstring in biolens.eval.probing for methodology details.
+#
+# Candidates drawn from two min_positives values (10 and 50) from the start,
+# per the lesson learned building esm2_35m's registry — see that file for
+# the full incident (a single-sweep-point registry produces a degenerate
+# confirmatory fit, near-zero predictor variance, not a real effect).
+#
+# NOTE on tooling: the initial inspect_features.py call for this registry
+# OOM-killed on the login node (d_sae=10240, full 557K-vector cache scan) —
+# fixed 2026-07-14 by adding an optional feature_indices= parameter to
+# load_cache_features() that discards unwanted SAE feature columns
+# immediately after each shard's encode() call instead of materializing the
+# full (N, d_sae) matrix (see src/biolens/eval/feature_inspection.py). Same
+# class of memory bug as the ActivationCache.finalize() OOM fixed earlier
+# (2026-07-04), just in a different, previously-untouched function.
+#
+# Round 1 (2026-07-14): 18 features checked — 10 from min_positives=10,
+# 8 from min_positives=50 — 1 confirmed, 7 plausible, 9 spurious,
+# 1 unverifiable. Notably higher plausible rate (39%) than esm2_150m's
+# first batch (11%) despite a similarly low confirmed rate (6% both) —
+# worth flagging as a real, if preliminary (n=18), cross-scale observation:
+# 650M's larger capacity may produce more "right general class, imprecise
+# specific claim" features rather than 150M's more common "completely
+# unrelated" pattern, but this is not yet a confirmed trend at this sample
+# size.
+#
+# Notable finding this round: feature 5627 is a clean, DIRECT confirmed
+# match for "AMP-activated protein kinase complex" — KING1, the actual
+# plant SNF1/AMPK regulatory gamma-subunit ortholog — genuinely part of the
+# real AMPK-family complex, not a structurally-similar CBS-domain decoy
+# like the false AMPK claims seen at every other scale checked so far
+# (esm2_8m feature 454, esm2_35m feature 454-equivalent, esm2_150m feature
+# 1382 via hemolysin's CBS domains). Worth noting as a
+# genuine positive control that the verification process isn't just finding
+# spurious results everywhere — real, well-supported claims do occur and
+# are correctly distinguished from the confounds.
+#
+# NOTE: feature indices in this file are scoped to esm2_650m's OWN trained
+# SAE (d_sae=10240, k=32) and are NOT comparable to any other model's
+# registry — feature indices are meaningless across differently-trained
+# SAEs (2026-07-14 scope-correction note).
+#
+# status values:
+#   confirmed    — real top-activating sequences match the claimed GO term/concept
+#   spurious     — real top-activating sequences are an unrelated protein family;
+#                  the claimed GO term is wrong for this feature
+#   plausible    — consistent with the claimed concept but not fully confirmed
+#                  (e.g. right general functional class but wrong specific
+#                  pathway/substrate, or one of several claimed terms confirmed
+#                  and others not)
+#   unverifiable — the target protein has no GO annotations at all to check
+#                  against; the feature may be tracking something real that
+#                  simply hasn't been characterized yet
+#
+# Scoped per (model, layer, SAE variant, k) — feature indices are meaningless
+# without a specific trained SAE; do not reuse this file for a different
+# checkpoint even of the same architecture (a retrained SAE will assign
+# different concepts to different feature indices).
+
+model: esm2_650m
+layer: 16
+sae_variant: topk
+k: 32
+
+features:
+  # ── min_positives=10, sweep_esm2_650m_L16_k32_x8/mp10 ──
+  2096:
+    status: spurious
+    claimed_go: ["GO:0047580"]
+    claimed_concept: "4-hydroxyproline epimerase activity"
+    real_identity: "Putative NAD(P)H nitroreductase acg (M. tuberculosis) — FMN-dependent oxidoreductase, unrelated enzyme class to an epimerase (isomerase)"
+    evidence_accessions: ["P9WIZ8"]
+
+  3537:
+    status: plausible
+    claimed_go: ["GO:0046982"]
+    claimed_concept: "protein heterodimerization activity"
+    real_identity: "Thyroid hormone receptor alpha — genuine nuclear hormone receptor; thyroid hormone receptors are textbook examples of obligate heterodimerization with RXR, though this specific GO annotation isn't explicitly listed in the fetched record"
+    evidence_accessions: ["Q9W6I9"]
+
+  3598:
+    status: plausible
+    claimed_go: ["GO:0008253"]
+    claimed_concept: "5'-nucleotidase activity"
+    real_identity: "HAD-like hydrolase superfamily protein (S. pombe) — documented 'acid phosphatase activity' but the entry explicitly notes it is 'not likely to act as a protein phosphatase'; right broad hydrolase/phosphatase superfamily, not confirmed as nucleotidase-specific"
+    evidence_accessions: ["O94279"]
+
+  5627:
+    status: confirmed
+    claimed_go: ["GO:0031588"]
+    claimed_concept: "nucleotide-activated protein kinase complex"
+    real_identity: "KING1 / AKING1 — SNF1-related protein kinase regulatory subunit gamma-1, documented as belonging to the 'AMPK gamma subunit family' with four CBS domains; a genuine AMPK-complex-family regulatory protein, not a structurally-similar decoy (contrast with the CBS-domain-containing but functionally unrelated false-AMPK claims found at every other scale checked so far)"
+    evidence_accessions: ["Q8LBB2"]
+
+  890:
+    status: spurious
+    claimed_go: ["GO:0006637"]
+    claimed_concept: "acyl-CoA metabolic process"
+    real_identity: "Putative G1/S-specific cyclin — cell-cycle regulator, documented 'cell division'; unrelated to acyl-CoA metabolism"
+    evidence_accessions: ["Q06374"]
+
+  571:
+    status: plausible
+    claimed_go: ["GO:0000038"]
+    claimed_concept: "very long-chain fatty acid metabolic process"
+    real_identity: "Uncharacterized esterase Atu5261 (tannase family) — genuine carboxylic ester hydrolase, right broad lipid-ester-metabolizing enzyme class, but not confirmed as VLCFA-specific"
+    evidence_accessions: ["Q8UK62"]
+
+  177:
+    status: spurious
+    claimed_go: ["GO:0019888"]
+    claimed_concept: "protein phosphatase regulator activity"
+    real_identity: "MSI1 — WD-repeat histone-binding protein, CAF-1 chromatin assembly factor subunit; the actual top-activating hit is a chromatin-remodeling protein, unrelated to phosphatase regulation (though several lower-ranked top-10 hits show a WD40-repeat pattern similar to the PP2A B-subunit confirmed at other scales, suggesting this feature may detect the generic WD40 beta-propeller fold rather than anything phosphatase-specific)"
+    evidence_accessions: ["O22466"]
+
+  2289:
+    status: spurious
+    claimed_go: ["GO:0009414"]
+    claimed_concept: "response to water deprivation"
+    real_identity: "CYP39A1, 24-hydroxycholesterol 7-alpha-hydroxylase — mammalian liver cytochrome P450 in bile-acid biosynthesis/cholesterol metabolism, unrelated to (plant) drought/water-deprivation response"
+    evidence_accessions: ["Q9NYL5"]
+
+  1793:
+    status: plausible
+    claimed_go: ["GO:0009051"]
+    claimed_concept: "pentose-phosphate shunt, oxidative branch"
+    real_identity: "NAG1, Glucosamine-6-phosphate isomerase/deaminase — real carbohydrate-metabolism enzyme producing fructose-6-phosphate, a genuine pentose-phosphate-pathway-connected metabolite, but its own documented pathway (amino-sugar catabolism) is distinct from the oxidative PPP branch specifically claimed"
+    evidence_accessions: ["Q04802"]
+
+  1852:
+    status: plausible
+    claimed_go: ["GO:0001669"]
+    claimed_concept: "acrosomal vesicle"
+    real_identity: "Glandular kallikrein-3 (rat submandibular gland) — genuine secreted serine protease from a secretory granule (documented CC includes 'secretory granule'), right broad category (secreted protease from a specialized secretory organelle) but wrong specific tissue/organelle (salivary kallikrein, not sperm acrosin)"
+    evidence_accessions: ["P15950"]
+
+  # ── min_positives=50, sweep_esm2_650m_L16_k32_x8/mp50 ──
+  4313:
+    status: spurious
+    claimed_go: ["GO:0005892"]
+    claimed_concept: "acetylcholine-gated channel complex"
+    real_identity: "Uncharacterized 5-pass transmembrane ER protein (S. pombe, UPF0742 family) — no known function, no evidence of any ligand-gated channel activity"
+    evidence_accessions: ["P0CU16"]
+
+  217:
+    status: spurious
+    claimed_go: ["GO:0005777", "GO:0005739"]
+    claimed_concept: "peroxisome / mitochondrion"
+    real_identity: "POP1, Ribonuclease P/MRP protein subunit — nucleolar/nuclear rRNA- and tRNA-processing complex component, unrelated to either claimed organelle; also this feature's 12.30% activation rate is notably broad"
+    evidence_accessions: ["F4IL30"]
+
+  2868:
+    status: plausible
+    claimed_go: ["GO:0090729", "GO:0042025", "GO:0005576"]
+    claimed_concept: "toxin activity / host cell nucleus / extracellular region"
+    real_identity: "AFP5, plant antifungal defense protein (lipid transfer protein family) — documented 'defense response to fungus' and 'killing of cells of another organism,' functionally toxin-like against fungal pathogens even though not formally labeled a toxin; genuinely small/secreted, consistent with 'extracellular region'; 'host cell nucleus' has no support at all"
+    evidence_accessions: ["P83139"]
+
+  68:
+    status: plausible
+    claimed_go: ["GO:0050832", "GO:0009737", "GO:0009753", "GO:0005634"]
+    claimed_concept: "defense response to fungus / response to abscisic acid / response to jasmonic acid / nucleus"
+    real_identity: "DVL13/DEVIL13 (Arabidopsis) — small nuclear-localized developmental regulatory polypeptide; 'nucleus' claim directly confirmed, but documented function is cell-proliferation/shoot-development regulation, not defense or hormone response"
+    evidence_accessions: ["Q8L7D0"]
+
+  3892:
+    status: unverifiable
+    claimed_go: ["GO:0042802"]
+    claimed_concept: "identical protein binding"
+    real_identity: "NDUA4, NADH dehydrogenase Complex I accessory subunit — real mitochondrial respiratory-chain protein, but no molecular-function GO terms are documented to check the specific 'identical protein binding' claim against; Complex I is a heteromeric assembly, not documented as self-associating"
+    evidence_accessions: ["G2TRT6"]
+
+  5208:
+    status: spurious
+    claimed_go: ["GO:0030027", "GO:0030425", "GO:0044877", "GO:0005737"]
+    claimed_concept: "lamellipodium / dendrite / protein-containing complex binding / cytoplasm"
+    real_identity: "TIR (Toll/interleukin-1 receptor-like) plant disease-resistance protein — documented 'cytoplasm' (a very broad, trivially-true claim for any plant protein) but 'lamellipodium' and 'dendrite' are animal-specific neuronal/cytoskeletal structures that don't apply to a plant immune receptor at all — a plant/animal domain mismatch"
+    evidence_accessions: ["Q9SSN3"]
+
+  7834:
+    status: spurious
+    claimed_go: ["GO:0009507", "GO:0005886"]
+    claimed_concept: "chloroplast / plasma membrane"
+    real_identity: "Dihydroorotase (pyrimidine biosynthesis enzyme) from a thermophilic bacterium (Caldanaerobacter) — bacteria have no chloroplasts at all; documented as cytoplasmic, not plasma-membrane-specific"
+    evidence_accessions: ["Q8R9R6"]
+
+  9461:
+    status: spurious
+    claimed_go: ["GO:0006633", "GO:0042803"]
+    claimed_concept: "fatty acid biosynthetic process / protein homodimerization activity"
+    real_identity: "Pentatricopeptide repeat (PPR) RNA-editing protein (Arabidopsis) — chloroplast-localized RNA-binding/cytidine-to-uridine editing factor, unrelated to fatty acid biosynthesis; PPR proteins function as single-protein RNA-binding modules, not documented for homodimerization"
+    evidence_accessions: ["Q9LTF4"]
+
+  # ── Round 2 (2026-07-22/23): first substantial registry growth against the
+  # 100K-eval-scale sweep (sweep_esm2_650m_L16_k32_x8_100k), not the 10K sweep
+  # round 1 used. This is 650M's first real growth round — round 1 was only
+  # 18 entries total. 82 fresh candidates pulled via select_fresh_candidates.py
+  # (--n-per-mp 30) — the largest single round8 batch across all four models
+  # this session. Result: 13 confirmed, 8 plausible, 61 spurious, 0
+  # unverifiable — a 16%/10%/74% split, closely matching esm2_8m's Round 8
+  # (17%/9%/74%) and esm2_35m's Round 5 (18%/8%/74%), and notably higher than
+  # esm2_150m's Round 2 (9%/9%/83%) — supporting the interpretation that
+  # 150m's lower rate was batch-to-batch noise (n=70) rather than a genuine
+  # per-model difference, since the largest model reverts to the same ~17%
+  # baseline. Multiple confirmed features this round were literally the same
+  # real proteins already confirmed in other models' registries this session
+  # (soybean/Arabidopsis cyclins, AKR-family oxidoreductases, CXC/CC
+  # chemokines, aquaporins) — the same small set of real, distinct concepts
+  # keeps getting independently rediscovered across model scales, which is
+  # itself a useful cross-model consistency check.
+  #
+  # Data-quality note: one WebFetch lookup of accession P35464 hallucinated a
+  # wrong identity (a Rattus norvegicus CRH receptor) when used for feature
+  # 6475, contradicting the correct identity (Manduca sexta diuretic hormone
+  # receptor, DH-R) already established for feature 5203's identical
+  # accession. Re-fetched directly with a stricter prompt (2026-07-23) to
+  # resolve: confirmed DH-R, GO-annotated adenylate-cyclase-modulating
+  # signaling only, no calcium-signaling term — feature 6475's claim
+  # (positive regulation of cytosolic calcium ion concentration) does not
+  # hold under the correct identity and is recorded as spurious, not
+  # plausible. Left as a concrete example of why WebFetch results in this
+  # kind of large-batch verification need periodic independent re-checking,
+  # not just internal-consistency flagging.
+
+  89:
+    status: confirmed
+    claimed_go: ["GO:0004252"]
+    claimed_concept: "serine-type endopeptidase activity"
+    real_identity: "Alpha-lytic protease L1 (Lysobacter sp.) — Peptidase S1 family, exact match"
+    evidence_accessions: ["P85142"]
+
+  1013:
+    status: confirmed
+    claimed_go: ["GO:0004069"]
+    claimed_concept: "L-aspartate:2-oxoglutarate transaminase activity"
+    real_identity: "Putative aspartate aminotransferase (Methylorubrum extorquens) — exact GO:0004069 match"
+    evidence_accessions: ["P52069"]
+
+  2512:
+    status: confirmed
+    claimed_go: ["GO:0009277"]
+    claimed_concept: "fungal-type cell wall"
+    real_identity: "Protein TOS6 (Debaryomyces hansenii) — GPI-anchored yeast cell-wall-attached glycoprotein, consistent with the claimed compartment"
+    evidence_accessions: ["Q6BIS8"]
+
+  4661:
+    status: confirmed
+    claimed_go: ["GO:0016538"]
+    claimed_concept: "cyclin-dependent protein serine/threonine kinase regulator activity"
+    real_identity: "Cyclin-B2-5 (Arabidopsis) — exact GO:0016538 match, genuine cyclin; the soybean cyclin S13-7 confirmed elsewhere in this project also appears in this feature's own top-10"
+    evidence_accessions: ["Q9LM91"]
+
+  4934:
+    status: confirmed
+    claimed_go: ["GO:0008106"]
+    claimed_concept: "alcohol dehydrogenase (NADP+) activity"
+    real_identity: "Morphine 6-dehydrogenase (rabbit) — aldo/keto reductase family, same oxidoreductase reaction class confirmed repeatedly elsewhere in this project"
+    evidence_accessions: ["P82810"]
+
+  5203:
+    status: confirmed
+    claimed_go: ["GO:0007186"]
+    claimed_concept: "G protein-coupled receptor signaling pathway"
+    real_identity: "Diuretic hormone receptor (Manduca sexta) — genuine family-B/secretin-like GPCR, exact GO:0007186-class match"
+    evidence_accessions: ["P35464"]
+
+  5488:
+    status: confirmed
+    claimed_go: ["GO:0006833"]
+    claimed_concept: "water transport"
+    real_identity: "Aquaporin-5 (Laccaria bicolor fungus) — exact GO:0015250 match, confirmed NPA pore motif"
+    evidence_accessions: ["I1Z8E7"]
+
+  5802:
+    status: confirmed
+    claimed_go: ["GO:0004497", "GO:0016712"]
+    claimed_concept: "monooxygenase activity / oxidoreductase acting on paired donors with flavin/flavoprotein"
+    real_identity: "Cytochrome P450 monooxygenase 208 (Postia placenta fungus) — exact GO:0004497/GO:0016705 match"
+    evidence_accessions: ["F1SYH1"]
+
+  5808:
+    status: confirmed
+    claimed_go: ["GO:0106310"]
+    claimed_concept: "protein serine kinase activity"
+    real_identity: "CARK9 (Arabidopsis) — genuine Ser/Thr/Tyr protein kinase, GO-annotated protein serine/threonine kinase activity"
+    evidence_accessions: ["O49338"]
+
+  7171:
+    status: confirmed
+    claimed_go: ["GO:0015250"]
+    claimed_concept: "water channel activity"
+    real_identity: "Aquaporin-7 (rat) — exact GO:0015250 match, plus glycerol/urea channel activity"
+    evidence_accessions: ["P56403"]
+
+  8709:
+    status: confirmed
+    claimed_go: ["GO:0000974", "GO:0000398", "GO:0005681"]
+    claimed_concept: "Prp19 complex / mRNA splicing via spliceosome / spliceosomal complex (among 18 simultaneously-claimed terms)"
+    real_identity: "Pre-mRNA-splicing factor SLU7 (Yarrowia lipolytica) — genuine spliceosome component; GO-annotated spliceosomal complex, mRNA cis splicing via spliceosome, and pre-mRNA 3'-splice-site binding cleanly match three of the highest-confidence claims, though the other 15 simultaneously-claimed terms this feature carries (cilium, sperm motility, histone binding, etc.) do not match at all — same promiscuous-claim pattern as elsewhere, but with a genuine core hit this time"
+    evidence_accessions: ["Q6C9T0"]
+
+  8839:
+    status: confirmed
+    claimed_go: ["GO:0030042"]
+    claimed_concept: "actin filament depolymerization"
+    real_identity: "Cofilin/actin-depolymerizing factor homolog 2 (Plasmodium falciparum) — exact GO:0030042 match"
+    evidence_accessions: ["Q8ID92"]
+
+  10232:
+    status: confirmed
+    claimed_go: ["GO:0008009"]
+    claimed_concept: "chemokine activity"
+    real_identity: "Monocyte chemotactic protein 1B / MCP-1B (bovine) — CC chemokine family, exact GO:0008009 match"
+    evidence_accessions: ["P80343"]
+
+  2004:
+    status: plausible
+    claimed_go: ["GO:0032956"]
+    claimed_concept: "regulation of actin cytoskeleton organization"
+    real_identity: "VHS2 (S. cerevisiae) — genuine GO-annotated 'establishment/maintenance of actin cytoskeleton polarity,' closely matching the claim, though the other three simultaneously-claimed terms this feature carries (neuron projection, presynapse, GABA-ergic synapse) do not apply to a yeast protein"
+    evidence_accessions: ["P40463"]
+
+  4817:
+    status: confirmed
+    claimed_go: ["GO:0000324", "GO:0016323"]
+    claimed_concept: "fungal-type vacuole / basolateral plasma membrane"
+    real_identity: "Chloride channel protein ClC-Kb (rabbit) — real record has an exact GO:0016323 match (basolateral plasma membrane); the co-claimed 'fungal-type vacuole' term does not match, but one of two claims is a clean exact hit, the same standard applied to other multi-term confirmed entries in this registry (corrected 2026-07-23 from an inconsistently-conservative 'plausible' call)"
+    evidence_accessions: ["P51804"]
+
+  4912:
+    status: plausible
+    claimed_go: ["GO:0003724"]
+    claimed_concept: "RNA helicase activity"
+    real_identity: "Probable global transactivator GTA (baculovirus) — genuine SNF2/RAD54-family helicase (GO-annotated helicase activity), though not specifically annotated as RNA-selective"
+    evidence_accessions: ["P41447"]
+
+  6208:
+    status: plausible
+    claimed_go: ["GO:0004693"]
+    claimed_concept: "cyclin-dependent protein serine/threonine kinase activity"
+    real_identity: "Testis-specific serine/threonine-protein kinase 3, TSSK3 (mouse) — same protein confirmed as plausible in esm2_8m's registry (feature 1415): genuine Pkinase-domain kinase, but TSSK family, not cyclin-dependent kinase specifically"
+    evidence_accessions: ["Q9D2E1"]
+
+  6475:
+    status: spurious
+    claimed_go: ["GO:0007204"]
+    claimed_concept: "positive regulation of cytosolic calcium ion concentration"
+    real_identity: "Diuretic hormone receptor, DH-R (Manduca sexta) — resolved via a stricter re-fetch after an initial WebFetch call misidentified this accession as a rat CRH receptor (see round note above); DH-R is a real family-B GPCR but is specifically annotated as adenylate-cyclase-modulating (cAMP pathway, GO:0007188), with no calcium-signaling GO term at all, so the claim does not hold"
+    evidence_accessions: ["P35464"]
+
+  6738:
+    status: unverifiable
+    claimed_go: ["GO:0004190"]
+    claimed_concept: "aspartic-type endopeptidase activity"
+    real_identity: "Uncharacterized protein AF_0612 (Archaeoglobus fulgidus) — has zero real GO annotations at all; only an InterPro domain-family classification (Peptidase aspartic domain superfamily) via structural homology, no confirmed functional characterization to check the claim against (corrected 2026-07-23 from 'plausible' — a domain-family InterPro hit without any GO annotation is the same 'nothing to verify against' situation as other unverifiable entries in this registry, not a partial functional match)"
+    evidence_accessions: ["O29643"]
+
+  8692:
+    status: plausible
+    claimed_go: ["GO:0008047"]
+    claimed_concept: "enzyme activator activity"
+    real_identity: "GTPase Obg (Akkermansia muciniphila) — an essential regulatory GTPase controlling ribosome biogenesis and the cell cycle; a loose functional-class match (GTPase as molecular switch/regulator) rather than a literal GO:0008047 annotation"
+    evidence_accessions: ["B2UQ30"]
+
+  10085:
+    status: plausible
+    claimed_go: ["GO:0005667"]
+    claimed_concept: "transcription regulator complex"
+    real_identity: "Zinc finger protein Elbow (Drosophila) — genuine C2H2 zinc-finger DNA-binding transcriptional regulator (GO-annotated negative regulation of transcription), but the specific 'complex' component term is not directly annotated"
+    evidence_accessions: ["Q9VJS8"]
+
+  45:
+    status: spurious
+    claimed_go: ["GO:0005884", "GO:0034605", "GO:0008237", "GO:0000776", "GO:0042542", "GO:0006355", "GO:0010008", "GO:0045211", "GO:0034599", "GO:0030424", "GO:0005819", "GO:0008284", "GO:0044877"]
+    claimed_concept: "13 simultaneously-claimed GO terms spanning actin filament, heat response, metallopeptidase, kinetochore, and more"
+    real_identity: "Ribosomal protein bS16 (Campylobacter fetus) — structural ribosome component, none of the 13 claims match"
+    evidence_accessions: ["A0RPR9"]
+
+  225:
+    status: spurious
+    claimed_go: ["GO:0003924", "GO:0016709", "GO:0000977", "GO:0031145", "GO:0090090", "GO:0005680", "GO:0016491", "GO:0051289", "GO:0000785", "GO:0003677", "GO:0098794"]
+    claimed_concept: "11 simultaneously-claimed GO terms spanning GTPase activity, oxidoreductase, APC complex, Wnt signaling, chromatin, and more"
+    real_identity: "Ribosomal protein uL5 (pig) — structural ribosome component, none of the 11 claims match"
+    evidence_accessions: ["Q29205"]
+
+  368:
+    status: spurious
+    claimed_go: ["GO:0006821", "GO:0030479"]
+    claimed_concept: "chloride transport / actin cortical patch"
+    real_identity: "Ribosomal protein uS2 (Desulfotalea psychrophila) — structural ribosome component, unrelated to either claim"
+    evidence_accessions: ["Q6AP41"]
+
+  538:
+    status: spurious
+    claimed_go: ["GO:0000045", "GO:0005885", "GO:0020002"]
+    claimed_concept: "autophagosome assembly / Arp2/3 complex / host cell plasma membrane"
+    real_identity: "Chi-conotoxin-like Ar1311 (Conus araneosus venom) — neuronal-transporter-inhibiting neurotoxin, none of the three claims match"
+    evidence_accessions: ["P0CI23"]
+
+  918:
+    status: spurious
+    claimed_go: ["GO:0045669"]
+    claimed_concept: "positive regulation of osteoblast differentiation"
+    real_identity: "Von Willebrand Factor (bovine) — blood-coagulation glycoprotein, unrelated to osteoblast differentiation"
+    evidence_accessions: ["P80012"]
+
+  1034:
+    status: spurious
+    claimed_go: ["GO:0005892"]
+    claimed_concept: "acetylcholine-gated channel complex"
+    real_identity: "Putative inactive magnesium transporter MRS2-8, likely pseudogene product (Arabidopsis) — CorA-family Mg2+ transporter, a completely different ion-channel family from Cys-loop acetylcholine receptors"
+    evidence_accessions: ["P0CZ22"]
+
+  1333:
+    status: spurious
+    claimed_go: ["GO:0010333", "GO:0046513", "GO:0010597", "GO:0007584", "GO:0005788", "GO:0006338", "GO:0005773", "GO:0035861", "GO:0005874", "GO:0051321", "GO:0000932", "GO:0015629", "GO:0046688", "GO:0044325", "GO:0031965", "GO:0007005", "GO:0048364", "GO:0009611", "GO:0005789", "GO:0005739", "GO:0001822", "GO:0030036", "GO:0020037", "GO:0005783", "GO:0042742"]
+    claimed_concept: "25 simultaneously-claimed GO terms spanning terpene synthase, ceramide biosynthesis, chromatin remodeling, meiotic cell cycle, and dozens more"
+    real_identity: "Chalcone synthase RJ5 (strawberry) — polyketide-synthase-family flavonoid biosynthesis enzyme; none of the 25 claims match"
+    evidence_accessions: ["P51076"]
+
+  1469:
+    status: spurious
+    claimed_go: ["GO:0008843"]
+    claimed_concept: "endochitinase activity"
+    real_identity: "Triosephosphate isomerase, glycosomal (Trypanosoma cruzi) — glycolysis enzyme, unrelated to chitinase activity"
+    evidence_accessions: ["P52270"]
+
+  1485:
+    status: spurious
+    claimed_go: ["GO:0004568"]
+    claimed_concept: "chitinase activity"
+    real_identity: "4-alpha-glucanotransferase / amylomaltase (Chlamydia muridarum) — GH77-family starch-modifying enzyme, a different glycosidase family/substrate from chitinases"
+    evidence_accessions: ["Q9PKU9"]
+
+  1766:
+    status: spurious
+    claimed_go: ["GO:0032993", "GO:0051117", "GO:0000775", "GO:0007368", "GO:0043025"]
+    claimed_concept: "protein-DNA complex / ATPase binding / centromeric chromosome / left-right symmetry / neuronal cell body"
+    real_identity: "PqqA, pyrroloquinoline quinone (PQQ) cofactor biosynthesis precursor peptide (Pseudomonas fluorescens) — none of the five claims match"
+    evidence_accessions: ["Q3K5R0"]
+
+  1792:
+    status: spurious
+    claimed_go: ["GO:0030170", "GO:0000902", "GO:0007059", "GO:0051384", "GO:0061629", "GO:0045766", "GO:0003690", "GO:0030324", "GO:0019899", "GO:0043065", "GO:0072659"]
+    claimed_concept: "11 simultaneously-claimed GO terms spanning PLP binding, cell morphogenesis, chromosome segregation, glucocorticoid response, and more"
+    real_identity: "L-amino acid-D/L-Glu epimerase (Sulfurimonas denitrificans) — mandelate racemase/MLE-superfamily enzyme, none of the 11 claims match"
+    evidence_accessions: ["Q30PM2"]
+
+  1822:
+    status: spurious
+    claimed_go: ["GO:0000338"]
+    claimed_concept: "protein deneddylation"
+    real_identity: "eIF3m, translation initiation factor (Phaeosphaeria nodorum fungus) — shares a PCI domain fold with COP9-signalosome deneddylation enzymes by distant homology, but its real function is translation initiation, not deneddylation"
+    evidence_accessions: ["Q0UXJ7"]
+
+  2058:
+    status: spurious
+    claimed_go: ["GO:0006487", "GO:0035264"]
+    claimed_concept: "protein N-linked glycosylation / multicellular organism growth"
+    real_identity: "Terpene cyclase terS (Tolypocladium album fungus) — indole-diterpene mycotoxin biosynthesis isomerase, unrelated to either claim"
+    evidence_accessions: ["P9WEE6"]
+
+  2187:
+    status: spurious
+    claimed_go: ["GO:0031640"]
+    claimed_concept: "killing of cells of another organism"
+    real_identity: "Lectin-D2 (Phytolacca americana pokeweed) — chitin-binding mitogenic lectin promoting cell division, not a cytotoxic/antimicrobial protein"
+    evidence_accessions: ["P83790"]
+
+  2279:
+    status: spurious
+    claimed_go: ["GO:0004565"]
+    claimed_concept: "beta-galactosidase activity"
+    real_identity: "4-alpha-glucanotransferase (Chlamydia caviae) — same GH77 starch-modifying enzyme family as feature 1485 this round, unrelated to beta-galactosidase"
+    evidence_accessions: ["O34022"]
+
+  2679:
+    status: spurious
+    claimed_go: ["GO:0005923"]
+    claimed_concept: "bicellular tight junction"
+    real_identity: "Tweety homolog 1, TTYH1 (bovine) — volume-regulated anion/chloride channel, not a tight-junction structural protein"
+    evidence_accessions: ["Q2KJ98"]
+
+  2718:
+    status: spurious
+    claimed_go: ["GO:0006488", "GO:0055088"]
+    claimed_concept: "dolichol-linked oligosaccharide biosynthetic process / lipid homeostasis"
+    real_identity: "PAPS reductase, Met16 (S. pombe) — sulfur/methionine biosynthesis oxidoreductase, none of the two claims match"
+    evidence_accessions: ["Q10270"]
+
+  2944:
+    status: spurious
+    claimed_go: ["GO:0140311", "GO:0032880", "GO:0042981", "GO:0005179", "GO:0009535", "GO:0007189", "GO:0065003", "GO:0007399", "GO:0000278", "GO:0007613", "GO:0009909", "GO:0019901", "GO:0045259", "GO:0003714", "GO:0006032", "GO:0000086", "GO:0071222", "GO:0032496", "GO:0001525", "GO:0009636", "GO:0048471", "GO:0007507", "GO:0070374", "GO:0045892"]
+    claimed_concept: "24 simultaneously-claimed GO terms spanning protein sequestering, hormone activity, GPCR signaling, memory, flower development, and more"
+    real_identity: "Ribosomal protein bS21 (Picosynechococcus sp. cyanobacterium) — structural ribosome component, none of the 24 claims match"
+    evidence_accessions: ["B1XPL6"]
+
+  3388:
+    status: spurious
+    claimed_go: ["GO:0009733"]
+    claimed_concept: "response to auxin"
+    real_identity: "Xyloglucan endotransglucosylase 7, XTH7 (persimmon) — GH16-family cell-wall enzyme involved in fruit ripening, not specifically auxin-responsive"
+    evidence_accessions: ["A0A067XR63"]
+
+  3756:
+    status: spurious
+    claimed_go: ["GO:0005507", "GO:0005802", "GO:0005811", "GO:0030308", "GO:0009986"]
+    claimed_concept: "copper ion binding / trans-Golgi network / lipid droplet / negative regulation of cell growth / cell surface"
+    real_identity: "TatA, Sec-independent protein translocase (Flavobacterium psychrophilum) — bacterial Tat-system membrane translocon component, none of the five claims match"
+    evidence_accessions: ["A6H2G3"]
+
+  3836:
+    status: spurious
+    claimed_go: ["GO:0008422"]
+    claimed_concept: "beta-glucosidase activity"
+    real_identity: "Alyteserin-2c (Alytes obstetricans toad) — antimicrobial skin defense peptide, unrelated to glycosidase activity"
+    evidence_accessions: ["P0DQW7"]
+
+  4166:
+    status: spurious
+    claimed_go: ["GO:0031667", "GO:0008234", "GO:0070062", "GO:0006508", "GO:0005525", "GO:0000287", "GO:0009416", "GO:0031982"]
+    claimed_concept: "8 simultaneously-claimed GO terms spanning nutrient response, cysteine peptidase, exosome, proteolysis, GTP binding, and more"
+    real_identity: "Type-1 fimbrial protein A chain (E. coli pilin) — bacterial cell-adhesion structural protein, none of the eight claims match"
+    evidence_accessions: ["P04128"]
+
+  4273:
+    status: spurious
+    claimed_go: ["GO:0009055", "GO:0006629", "GO:0005770", "GO:0001701"]
+    claimed_concept: "electron transfer activity / lipid metabolic process / late endosome / in utero embryonic development"
+    real_identity: "RlmI, 23S rRNA m5C1962 methyltransferase (Alteromonas mediterranea) — rRNA modification enzyme, none of the four claims match"
+    evidence_accessions: ["B4RRY8"]
+
+  4315:
+    status: spurious
+    claimed_go: ["GO:0031505"]
+    claimed_concept: "fungal-type cell wall organization"
+    real_identity: "NUC-1, phosphorus-acquisition bHLH transcription factor (Verticillium dahliae) — a real fungal transcription factor, but regulates phosphate genes, not cell wall organization"
+    evidence_accessions: ["G2WYR2"]
+
+  4442:
+    status: spurious
+    claimed_go: ["GO:0004222", "GO:0004180", "GO:0000307", "GO:0006954", "GO:0001934", "GO:0007155", "GO:0014069", "GO:0042383", "GO:0009267", "GO:0008285"]
+    claimed_concept: "10 simultaneously-claimed GO terms spanning metalloendopeptidase, carboxypeptidase, CDK complex, inflammatory response, and more"
+    real_identity: "Tyrosine-protein phosphatase 1, STY-1 (Styela plicata tunicate) — a genuine phosphatase enzyme, but none of the 10 claimed terms match its real dephosphorylation function"
+    evidence_accessions: ["P28193"]
+
+  4876:
+    status: spurious
+    claimed_go: ["GO:0017000"]
+    claimed_concept: "antibiotic biosynthetic process"
+    real_identity: "Methyltransferase pytC, pyranterreone biosynthesis (Aspergillus terreus) — fungal antioxidant secondary-metabolite biosynthesis, not documented as antibiotic"
+    evidence_accessions: ["P9WEZ3"]
+
+  4939:
+    status: spurious
+    claimed_go: ["GO:0005769"]
+    claimed_concept: "early endosome"
+    real_identity: "Chaperonin GroEL (Mycobacterium ulcerans) — cytoplasmic protein-folding chaperone, unrelated to endosomes"
+    evidence_accessions: ["Q50826"]
+
+  5032:
+    status: spurious
+    claimed_go: ["GO:0008017", "GO:0097190", "GO:0034976", "GO:0007286", "GO:0051260", "GO:0017119", "GO:1990837", "GO:0031012", "GO:0005921", "GO:0000978", "GO:0001669", "GO:0030674", "GO:0050821", "GO:0043565", "GO:0140297", "GO:0048018", "GO:0010468", "GO:0071260", "GO:0000987", "GO:0046982", "GO:0042803"]
+    claimed_concept: "21 simultaneously-claimed GO terms spanning microtubule binding, apoptotic signaling, ER stress, spermatid development, gap junction, and more"
+    real_identity: "Heat shock factor-binding protein 1, HSBP1 (mouse) — heat-shock-response negative regulator; 'protein homooligomerization' is a loose thematic echo of its real homohexamer formation, but none of the 21 claims are a clean match, including that one"
+    evidence_accessions: ["Q9CQZ1"]
+
+  5080:
+    status: spurious
+    claimed_go: ["GO:0009898", "GO:0036126", "GO:0031152", "GO:0008203", "GO:0072686", "GO:0042632", "GO:0009306"]
+    claimed_concept: "7 simultaneously-claimed GO terms spanning cytoplasmic plasma membrane side, sperm flagellum, sorocarp development, cholesterol metabolism, and more"
+    real_identity: "Stem-specific protein TSJT1 (tobacco), Ntn-hydrolase-fold DUF protein — none of the seven claims match"
+    evidence_accessions: ["P24805"]
+
+  5173:
+    status: spurious
+    claimed_go: ["GO:0072583", "GO:0030430", "GO:0016328", "GO:0008202", "GO:0005543", "GO:0001819", "GO:0006952", "GO:0005576", "GO:0006874", "GO:0016324"]
+    claimed_concept: "10 simultaneously-claimed GO terms spanning clathrin endocytosis, host cell cytoplasm, lateral plasma membrane, steroid metabolism, and more"
+    real_identity: "Ribosomal protein eL13 (Aeropyrum pernix archaeon) — structural ribosome component, none of the 10 claims match"
+    evidence_accessions: ["Q9YEN9"]
+
+  5200:
+    status: spurious
+    claimed_go: ["GO:0004029"]
+    claimed_concept: "aldehyde dehydrogenase (NAD+) activity"
+    real_identity: "Succinyl-CoA:(R)-benzylsuccinate CoA-transferase subunit BbsF (Thauera aromatica) — CoA-transferase III family, a different enzyme class/fold from aldehyde dehydrogenase"
+    evidence_accessions: ["Q9KJE9"]
+
+  5661:
+    status: spurious
+    claimed_go: ["GO:0070160", "GO:0098839"]
+    claimed_concept: "tight junction / postsynaptic density membrane"
+    real_identity: "PIRT, TRPV1 channel regulatory subunit (mouse) — PIP2-binding heat/pain-signaling modulator, not a cell-junction or postsynaptic-density structural protein"
+    evidence_accessions: ["Q8BFY0"]
+
+  5729:
+    status: spurious
+    claimed_go: ["GO:0031902", "GO:0004143", "GO:0051899", "GO:0005901", "GO:0005085", "GO:1990756", "GO:0000423", "GO:0006888", "GO:0043161", "GO:0004842", "GO:0009555", "GO:0031625", "GO:0043627", "GO:0006897"]
+    claimed_concept: "14 simultaneously-claimed GO terms spanning late endosome, diacylglycerol kinase, membrane depolarization, GEF activity, mitophagy, and more"
+    real_identity: "SPX domain protein 6, OsSPX6 (rice) — phosphate-starvation response protein, none of the 14 claims match"
+    evidence_accessions: ["A2YNP0"]
+
+  5867:
+    status: spurious
+    claimed_go: ["GO:0090729", "GO:0043525", "GO:0034045", "GO:0005930", "GO:0044183", "GO:0000329", "GO:0015630", "GO:0006909", "GO:0005768", "GO:0031410", "GO:0042802"]
+    claimed_concept: "11 simultaneously-claimed GO terms spanning toxin activity, neuron apoptosis, phagophore assembly, axoneme, and more"
+    real_identity: "Longipin (Acutisoma longipes harvestman) — antimicrobial defense peptide (fungus/bacteria), not literally annotated as a toxin and none of the other 10 claims match"
+    evidence_accessions: ["C0HJF8"]
+
+  6005:
+    status: spurious
+    claimed_go: ["GO:0005765", "GO:0005741", "GO:0008340"]
+    claimed_concept: "lysosomal membrane / mitochondrial outer membrane / determination of adult lifespan"
+    real_identity: "CbiM metal transport protein (Haloquadratum walsbyi archaeon) — generic membrane metal transporter, none of the three claims match"
+    evidence_accessions: ["Q18EC4"]
+
+  6331:
+    status: spurious
+    claimed_go: ["GO:0051592", "GO:0042594", "GO:0016485", "GO:0006805", "GO:0055037", "GO:0043434", "GO:0001666", "GO:0031966", "GO:0045471"]
+    claimed_concept: "9 simultaneously-claimed GO terms spanning calcium response, starvation response, protein processing, xenobiotic metabolism, and more"
+    real_identity: "Dermaseptin-J5 (Phasmahyla jandaia frog) — antimicrobial skin defense peptide, none of the nine claims match"
+    evidence_accessions: ["P86683"]
+
+  6773:
+    status: spurious
+    claimed_go: ["GO:0032760"]
+    claimed_concept: "positive regulation of tumor necrosis factor production"
+    real_identity: "Adiponectin (bovine) — GO-annotated NEGATIVE regulation of TNF production, the opposite direction from the claim"
+    evidence_accessions: ["Q3Y5Z3"]
+
+  7059:
+    status: spurious
+    claimed_go: ["GO:0030587"]
+    claimed_concept: "sorocarp development"
+    real_identity: "Uncharacterized protein DDB_G0293968 (Dictyostelium discoideum) — same dubious poly-Asn gene prediction already documented in esm2_150m's registry (feature 3755), no real GO annotation"
+    evidence_accessions: ["Q54B23"]
+
+  7228:
+    status: spurious
+    claimed_go: ["GO:0017148", "GO:0006955", "GO:0006325", "GO:0002931", "GO:0019731", "GO:0007420", "GO:0000122", "GO:0007283", "GO:0032258", "GO:0005634", "GO:0050829", "GO:0003723", "GO:0003729", "GO:0045893", "GO:0010629"]
+    claimed_concept: "15 simultaneously-claimed GO terms spanning translation regulation, immune response, chromatin organization, brain development, and more"
+    real_identity: "Cytochrome b, mitochondrial complex III (Plethodon yonahlossee salamander) — bioenergetic electron-transport protein, none of the 15 claims match"
+    evidence_accessions: ["P34862"]
+
+  7546:
+    status: spurious
+    claimed_go: ["GO:0001676", "GO:0006631", "GO:0051301", "GO:0045177", "GO:0001889", "GO:0009651"]
+    claimed_concept: "6 simultaneously-claimed GO terms spanning fatty acid metabolism, cell division, apical cell part, liver development, salt stress response"
+    real_identity: "PAPS reductase, Met16 (S. pombe) — same protein as feature 2718 this round, again sulfur/methionine biosynthesis; none of the six claims match"
+    evidence_accessions: ["Q10270"]
+
+  7829:
+    status: spurious
+    claimed_go: ["GO:0000981", "GO:0004096", "GO:0016604", "GO:0009725", "GO:0006879", "GO:0045944", "GO:0009791"]
+    claimed_concept: "7 simultaneously-claimed GO terms including RNA Pol II transcription factor activity and biotin-adjacent iron homeostasis"
+    real_identity: "Biotin carrier protein MADF (Malonomonas rubra) — same biotin-utilizing decarboxylase-complex carrier subunit already documented in esm2_150m's registry (feature 3872); none of the seven claims match"
+    evidence_accessions: ["O06930"]
+
+  7844:
+    status: spurious
+    claimed_go: ["GO:0000779", "GO:0046933", "GO:0003697", "GO:0042593", "GO:0006914", "GO:0098609", "GO:0009507"]
+    claimed_concept: "7 simultaneously-claimed GO terms spanning centromeric chromosome, ATP synthase, ssDNA binding, glucose homeostasis, and more"
+    real_identity: "SERF-like protein (Drosophila melanogaster) — small disordered cytosolic protein of otherwise unclear function, none of the seven claims match"
+    evidence_accessions: ["Q9VEW2"]
+
+  7993:
+    status: spurious
+    claimed_go: ["GO:0032869", "GO:0000407", "GO:0030968", "GO:0051726", "GO:0003713", "GO:0043524", "GO:0005730", "GO:0016236", "GO:0032355", "GO:0007623", "GO:0006995", "GO:0071456"]
+    claimed_concept: "12 simultaneously-claimed GO terms spanning insulin response, phagophore assembly, ER stress, cell cycle regulation, and more"
+    real_identity: "dCTP deaminase, dUMP-forming (Cytophaga hutchinsonii) — pyrimidine-metabolism enzyme, none of the 12 claims match"
+    evidence_accessions: ["Q11TJ6"]
+
+  8196:
+    status: spurious
+    claimed_go: ["GO:0006281"]
+    claimed_concept: "DNA repair"
+    real_identity: "PWWP domain protein PDP2 (Arabidopsis) — PRC2-complex epigenetic/flowering regulator, a chromatin-regulation protein but not specifically a DNA-repair factor"
+    evidence_accessions: ["Q9SF36"]
+
+  8222:
+    status: spurious
+    claimed_go: ["GO:0042025", "GO:0050830"]
+    claimed_concept: "host cell nucleus / defense response to Gram-positive bacterium"
+    real_identity: "Phenol-soluble modulin alpha 4 (Staphylococcus aureus) — a bacterial virulence peptide that kills HOST cells (neutrophils), the reverse relationship from 'defense response to' a Gram-positive bacterium; not nuclear-localized"
+    evidence_accessions: ["P0C818"]
+
+  8238:
+    status: spurious
+    claimed_go: ["GO:0070161"]
+    claimed_concept: "anchoring junction"
+    real_identity: "Isatin hydrolase (Roseibium aggregatum) — Mn-dependent IAA-degradation enzyme, unrelated to cell junctions"
+    evidence_accessions: ["A0NLY7"]
+
+  8316:
+    status: spurious
+    claimed_go: ["GO:0009101"]
+    claimed_concept: "glycoprotein biosynthetic process"
+    real_identity: "Lipase member J, LIPJ (human) — AB-hydrolase-family lipase, a lipid-catabolism enzyme unrelated to glycoprotein biosynthesis"
+    evidence_accessions: ["Q5W064"]
+
+  8340:
+    status: spurious
+    claimed_go: ["GO:0033617", "GO:0005254", "GO:0032868", "GO:0005879", "GO:0005935", "GO:0071356", "GO:0036064", "GO:0005509", "GO:0009617", "GO:0030163", "GO:0010628"]
+    claimed_concept: "11 simultaneously-claimed GO terms spanning complex IV assembly, chloride channel, insulin response, axonemal microtubule, and more"
+    real_identity: "DeoR transcriptional regulator (Bacillus subtilis) — HTH sugar-sensing DNA-binding repressor, none of the 11 claims match"
+    evidence_accessions: ["P39140"]
+
+  8554:
+    status: spurious
+    claimed_go: ["GO:0004089", "GO:0005178", "GO:0008270"]
+    claimed_concept: "carbonate dehydratase activity / integrin binding / zinc ion binding"
+    real_identity: "Agmatine deiminase (Medicago truncatula) — polyamine-biosynthesis deiminase enzyme, none of the three claims match"
+    evidence_accessions: ["G7JT50"]
+
+  8651:
+    status: spurious
+    claimed_go: ["GO:0005758", "GO:0009792", "GO:0005911", "GO:0000281", "GO:0019904"]
+    claimed_concept: "mitochondrial intermembrane space / embryo development / cell-cell junction / mitotic cytokinesis / protein domain specific binding"
+    real_identity: "Ribosomal protein uL13 (Syntrophobacter fumaroxidans) — structural ribosome-assembly protein, none of the five claims match"
+    evidence_accessions: ["A0LIV4"]
+
+  8653:
+    status: spurious
+    claimed_go: ["GO:0003730"]
+    claimed_concept: "mRNA 3'-UTR binding"
+    real_identity: "NAD(P)H-quinone oxidoreductase subunit H, chloroplastic NDH complex (rye) — photosynthetic electron-transport protein, unrelated to RNA binding"
+    evidence_accessions: ["P27758"]
+
+  8809:
+    status: spurious
+    claimed_go: ["GO:0030288", "GO:0046677", "GO:0009102", "GO:0042597", "GO:0030447", "GO:0030336", "GO:0009897", "GO:0008360"]
+    claimed_concept: "8 simultaneously-claimed GO terms spanning periplasmic space, antibiotic response, biotin biosynthesis, filamentous growth, and more"
+    real_identity: "DNA utilization protein HofN (E. coli) — competence-system inner-membrane DNA-uptake protein; only a generic plasma-membrane localization loosely overlaps, none of the eight claims are a clean match"
+    evidence_accessions: ["P64634"]
+
+  8822:
+    status: spurious
+    claimed_go: ["GO:0046777", "GO:0009612"]
+    claimed_concept: "protein autophosphorylation / response to mechanical stimulus"
+    real_identity: "Ribosomal protein bS6 (Caldanaerobacter subterraneus) — structural ribosome component, unrelated to either claim"
+    evidence_accessions: ["Q8R6M1"]
+
+  8931:
+    status: spurious
+    claimed_go: ["GO:0006816", "GO:0004129"]
+    claimed_concept: "calcium ion transport / cytochrome-c oxidase activity"
+    real_identity: "Ribosomal protein eL41 (Spodoptera frugiperda) — structural ribosome component, unrelated to either claim"
+    evidence_accessions: ["Q7KF89"]
+
+  8990:
+    status: spurious
+    claimed_go: ["GO:0045444"]
+    claimed_concept: "fat cell differentiation"
+    real_identity: "Collagen alpha-1(IX) chain (rat) — FACIT cartilage collagen, a different mesenchymal-differentiation lineage (chondrocyte, not adipocyte)"
+    evidence_accessions: ["P20850"]
+
+  9048:
+    status: spurious
+    claimed_go: ["GO:0008800", "GO:0009658", "GO:0009749"]
+    claimed_concept: "beta-lactamase activity / chloroplast organization / response to glucose"
+    real_identity: "Uncharacterized zinc metalloprotease, M16 family (Rickettsia bellii) — a different enzyme class from beta-lactamase, no chloroplast/glucose relevance"
+    evidence_accessions: ["Q1RJ61"]
+
+  9507:
+    status: spurious
+    claimed_go: ["GO:0005096"]
+    claimed_concept: "GTPase activator activity"
+    real_identity: "GRB7, SH2/PH/RA-domain signaling adapter protein (mouse) — a receptor-tyrosine-kinase adaptor, not a GAP enzyme"
+    evidence_accessions: ["Q03160"]
+
+  9555:
+    status: spurious
+    claimed_go: ["GO:0035556"]
+    claimed_concept: "intracellular signal transduction"
+    real_identity: "DNA mismatch repair protein MutL (Syntrophomonas wolfei) — ATP-dependent DNA-repair enzyme, not a signaling protein"
+    evidence_accessions: ["Q0AYB2"]
+
+  9570:
+    status: spurious
+    claimed_go: ["GO:0030018"]
+    claimed_concept: "Z disc"
+    real_identity: "LIM domain only protein 3, LMO-3 (zebrafish) — a nuclear LIM-domain transcription coactivator, not a Z-disc structural protein"
+    evidence_accessions: ["Q503U0"]
+
+  9974:
+    status: spurious
+    claimed_go: ["GO:0022848", "GO:0095500", "GO:0004993"]
+    claimed_concept: "acetylcholine-gated channel activity / acetylcholine receptor signaling / serotonin receptor activity"
+    real_identity: "Olfactory receptor 5A2 (human) — same recurring olfactory-receptor-misclassified-as-neurotransmitter-receptor GPCR confound documented repeatedly elsewhere in this project"
+    evidence_accessions: ["Q8NGI9"]
+
+  10037:
+    status: spurious
+    claimed_go: ["GO:0008201"]
+    claimed_concept: "heparin binding"
+    real_identity: "Iron-sulfur cluster repair protein YtfE (Citrobacter koseri) — hemerythrin-like di-iron stress-repair protein, unrelated to heparin binding"
+    evidence_accessions: ["A8AMI9"]

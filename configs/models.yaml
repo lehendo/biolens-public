@@ -1,0 +1,122 @@
+# Model registry for BioLens.
+# Phase 0: ESM2 protein models only.
+# Phase 1: uncomment genomic and single-cell sections.
+
+models:
+
+  # ── Phase 0 ── Protein language models ──────────────────────────────────
+  esm2_8m:
+    family: protein
+    hf_name: facebook/esm2_t6_8M_UR50D
+    tokenizer: facebook/esm2_t6_8M_UR50D
+    num_layers: 6        # transformer blocks (excludes embedding layer)
+    hidden_dim: 320
+    max_seq_len: 1024    # safe upper bound; model handles up to ~5000 with degraded quality
+    supported: true
+
+  esm2_35m:
+    family: protein
+    hf_name: facebook/esm2_t12_35M_UR50D
+    tokenizer: facebook/esm2_t12_35M_UR50D
+    num_layers: 12
+    hidden_dim: 480
+    max_seq_len: 1024
+    supported: true
+
+  esm2_150m:
+    family: protein
+    hf_name: facebook/esm2_t30_150M_UR50D
+    tokenizer: facebook/esm2_t30_150M_UR50D
+    num_layers: 30
+    hidden_dim: 640
+    max_seq_len: 1024
+    supported: true
+
+  esm2_650m:
+    family: protein
+    hf_name: facebook/esm2_t33_650M_UR50D
+    tokenizer: facebook/esm2_t33_650M_UR50D
+    num_layers: 33
+    hidden_dim: 1280
+    max_seq_len: 1024
+    supported: true
+
+  # ── Phase 1 ── Genomic models ────────────────────────────────────────────
+  # Note: Arc Institute has already published SAEs on evo2_7b (Brixi et al.).
+  # BioLens includes Evo 2 not for novelty of training, but for the unified
+  # cross-modality API needed by Phase 2.
+  evo2_7b:
+    family: genomic
+    hf_name: arcinstitute/evo2_7b       # not actually used for loading — see
+                                         # src/biolens/models/evo2.py (loaded via
+                                         # the `evo2` pip package's own Evo2 class,
+                                         # not transformers.AutoModel); kept here
+                                         # for documentation/discoverability only.
+    tokenizer: arcinstitute/evo2_7b     # ditto — tokenization goes through the
+                                         # model's own .tokenizer, not this field.
+    num_layers: 32
+    hidden_dim: 4096
+    max_seq_len: 8192    # start conservatively; model supports up to 1M tokens
+    supported: true       # Evo2Model adapter implemented — untested on this
+                           # machine by necessity (requires CUDA + Flash
+                           # Attention + the `evo2` package); first real
+                           # validation happens on the cluster.
+
+  evo2_40b:
+    family: genomic
+    hf_name: arcinstitute/evo2_40b      # not used for loading — see note above
+    tokenizer: arcinstitute/evo2_40b
+    num_layers: 50        # CONFIRMED 2026-07-25: read directly from the installed
+                           # `evo2` package's own packaged config (not the HF model
+                           # card) — evo2.utils.CONFIG_MAP['evo2_40b'] resolves to
+                           # configs/evo2-40b-1m.yml inside the package, which has
+                           # `num_layers: 50` and `hidden_size: 8192` verbatim. Same
+                           # source used for hidden_dim below — the previous
+                           # "placeholder, unverified" note undersold this: the
+                           # package ships its own real config file, it just wasn't
+                           # located before. attn_layer_idxs from that same file:
+                           # [3,10,17,24,31,35,42,49] (for a future --layer choice
+                           # analogous to 7B's use of an attn_layer_idxs member).
+    hidden_dim: 8192       # CONFIRMED 2026-07-25 — see num_layers note; matches
+                           # the prior placeholder value exactly, now on real footing.
+    max_seq_len: 8192
+    supported: true       # hidden_dim/num_layers now verified from the real
+                           # packaged config (see above) — the one remaining
+                           # unverified piece is Evo2Model._layer_name's
+                           # `blocks.{layer}.mlp.l3` tap point, confirmed via live
+                           # named_modules() introspection for evo2_7b specifically
+                           # (src/biolens/models/evo2.py) but not yet re-confirmed
+                           # against a loaded evo2_40b model — StripedHyena2's
+                           # block/mlp structure is expected to be architecturally
+                           # identical across model sizes, but "expected" isn't
+                           # "confirmed"; re-run the same introspection once a real
+                           # evo2_40b load is possible (see extract_activations_evo2.sh
+                           # note on GPU memory) before trusting activations from it.
+
+  hyenadna_large_1m:
+    family: genomic
+    hf_name: LongSafari/hyenadna-large-1m-seqlen-hf
+    tokenizer: LongSafari/hyenadna-large-1m-seqlen-hf
+    num_layers: 24
+    hidden_dim: 256
+    max_seq_len: 8192    # start conservatively; model supports 1M bp
+    supported: false     # Phase 1
+
+  # ── Phase 1 ── Single-cell models ────────────────────────────────────────
+  geneformer_12l:
+    family: single_cell
+    hf_name: ctheodoris/Geneformer
+    tokenizer: ctheodoris/Geneformer
+    num_layers: 12
+    hidden_dim: 512
+    max_seq_len: 2048    # gene tokens per cell
+    supported: false     # Phase 1
+
+  scgpt_human:
+    family: single_cell
+    hf_name: null        # local checkpoint required; see Phase 1 setup docs
+    tokenizer: null
+    num_layers: 12
+    hidden_dim: 512
+    max_seq_len: 1200
+    supported: false     # Phase 1

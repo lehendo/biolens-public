@@ -1,0 +1,329 @@
+# Verified/debunked SAE feature -> GO-term claims for the esm2_8m layer5
+# topk k32_x4 expansion-factor/k ablation checkpoint. Does artifact
+# severity scale with d_sae/k? Same verification methodology as the main four
+# registries -- see esm2_8m_layer5_topk_k32.yaml's header for the full
+# protocol.
+#
+# Round 1 (2026-07-29): 34 fresh candidates (mp10/mp20/mp50/mp100 -- mp150/
+# 200/300 exhausted), all verified against real UniProt records.
+# Result: 5 confirmed, 4 plausible, 22 spurious, 3 unverifiable (15%/12%/65%/9%).
+model: esm2_8m
+layer: 5
+sae_variant: topk
+k: 32
+features:
+  97:
+    status: plausible
+    claimed_go:
+    - GO:0004467
+    claimed_concept: long-chain fatty acid-CoA ligase activity
+    real_identity: 4-coumarate--CoA ligase 1 (Glycine max) — right general mechanism
+      (CoA-ligase activity, GO:0016405), wrong substrate class (phenylpropanoid/coumarate,
+      not fatty acid)
+    evidence_accessions:
+    - P31686
+  120:
+    status: spurious
+    claimed_go:
+    - GO:0030550
+    claimed_concept: acetylcholine receptor inhibitor activity
+    real_identity: Fatty acid-binding protein (Clonorchis sinensis) — lipid binding,
+      unrelated
+    evidence_accessions:
+    - Q8MUC1
+  210:
+    status: spurious
+    claimed_go:
+    - GO:0004679
+    claimed_concept: AMP-activated protein kinase activity
+    real_identity: Tie-1 receptor tyrosine kinase (Danio rerio) — same generic-kinase-catalytic-domain
+      confound documented elsewhere for Tie-1
+    evidence_accessions:
+    - O73792
+  237:
+    status: plausible
+    claimed_go:
+    - GO:0035251
+    claimed_concept: UDP-glucosyltransferase activity
+    real_identity: MurG / UDP-N-acetylglucosamine transferase (Azoarcus sp.) — a UDP-sugar-donor
+      glycosyltransferase (right general mechanism), wrong specific sugar (GlcNAc
+      for peptidoglycan, not glucose)
+    evidence_accessions:
+    - A1K3U6
+  240:
+    status: unverifiable
+    claimed_go:
+    - GO:0008285
+    claimed_concept: negative regulation of cell population proliferation
+    real_identity: UPF0761 membrane protein ESA_04062 (Cronobacter sakazakii) — only
+      generic plasma membrane annotation
+    evidence_accessions:
+    - A7MQD5
+  244:
+    status: unverifiable
+    claimed_go:
+    - GO:0031588
+    claimed_concept: nucleotide-activated protein kinase complex (AMPK)
+    real_identity: CBS domain-containing protein YhcV (Bacillus subtilis) — zero GO
+      annotations; same recurring CBS-domain-false-AMPK confound pattern documented
+      elsewhere in this project, but here the real protein has no annotations to even
+      call it spurious against
+    evidence_accessions:
+    - P54606
+  271:
+    status: spurious
+    claimed_go:
+    - GO:0106286
+    claimed_concept: (E)-caffeate-CoA ligase activity
+    real_identity: Adenylate kinase (Phenylobacterium zucineum) — nucleotide phosphorylation,
+      unrelated
+    evidence_accessions:
+    - B4R8N8
+  285:
+    status: spurious
+    claimed_go:
+    - GO:0005576
+    claimed_concept: extracellular region
+    real_identity: Putative uncharacterized protein Q0032, mitochondrial (Saccharomyces
+      cerevisiae) — mitochondrial, opposite compartment
+    evidence_accessions:
+    - Q9ZZX7
+  305:
+    status: confirmed
+    claimed_go:
+    - GO:0006637
+    claimed_concept: acyl-CoA metabolic process
+    real_identity: Putative esterase MT1895 (Mycobacterium tuberculosis), GO:0061522
+      1,4-dihydroxy-2-naphthoyl-CoA thioesterase activity — hydrolyzing an acyl-CoA-like
+      thioester
+    evidence_accessions:
+    - P9WIM2
+  323:
+    status: spurious
+    claimed_go:
+    - GO:0004069
+    claimed_concept: L-aspartate:2-oxoglutarate transaminase activity
+    real_identity: Cystathionine beta-lyase (Lactococcus lactis) — a different PLP-dependent
+      enzyme mechanism (lyase, not transaminase)
+    evidence_accessions:
+    - P0C2T9
+  375:
+    status: unverifiable
+    claimed_go:
+    - GO:0046982
+    claimed_concept: protein heterodimerization activity
+    real_identity: Putative uncharacterized protein YHR217C (Saccharomyces cerevisiae)
+      — zero GO annotations
+    evidence_accessions:
+    - P38898
+  388:
+    status: spurious
+    claimed_go:
+    - GO:0045211
+    claimed_concept: postsynaptic membrane
+    real_identity: Leukocyte-specific transcript 1 protein (Mus musculus) — immune
+      cell protein; 'dendrite development' annotation refers to general cell morphogenesis,
+      not neuronal specialization (keyword coincidence, not a real match)
+    evidence_accessions:
+    - O08843
+  514:
+    status: confirmed
+    claimed_go:
+    - GO:0007165
+    claimed_concept: signal transduction
+    real_identity: Latrophilin receptor-like protein A (Dictyostelium discoideum),
+      a GPCR — cell surface receptor signaling pathway is a documented instance of
+      signal transduction
+    evidence_accessions:
+    - Q54MC6
+  552:
+    status: spurious
+    claimed_go:
+    - GO:0006631
+    claimed_concept: fatty acid metabolic process
+    real_identity: Putative uncharacterized protein YjhE (Escherichia coli) — generic
+      transmembrane transporter activity, no fatty-acid specificity
+    evidence_accessions:
+    - P39355
+  558:
+    status: spurious
+    claimed_go:
+    - GO:0095500
+    claimed_concept: acetylcholine receptor signaling pathway
+    real_identity: Tetraspanin-12 (Gallus gallus) — angiogenesis/retina protein, unrelated
+    evidence_accessions:
+    - Q5ZIF5
+  584:
+    status: spurious
+    claimed_go:
+    - GO:0009688
+    claimed_concept: abscisic acid biosynthetic process
+    real_identity: Malate dehydrogenase (Delftia acidovorans) — TCA cycle enzyme,
+      unrelated
+    evidence_accessions:
+    - P80539
+  634:
+    status: spurious
+    claimed_go:
+    - GO:0047580
+    claimed_concept: 4-hydroxyproline epimerase activity
+    real_identity: Methyl-coenzyme M reductase I subunit beta (Methanocaldococcus
+      jannaschii) — methanogenesis enzyme, unrelated
+    evidence_accessions:
+    - Q58252
+  654:
+    status: spurious
+    claimed_go:
+    - GO:0001669
+    claimed_concept: acrosomal vesicle
+    real_identity: Thrombin-like enzyme cerastotin (Cerastes cerastes, snake venom)
+      — toxin/protease, unrelated to sperm biology
+    evidence_accessions:
+    - P81038
+  706:
+    status: confirmed
+    claimed_go:
+    - GO:0005739
+    claimed_concept: mitochondrion
+    real_identity: NADH dehydrogenase [ubiquinone] 1 subunit C1 / NDUFC1 (Mus musculus)
+      — exact GO:0005739 match
+    evidence_accessions:
+    - Q9CQY9
+  716:
+    status: plausible
+    claimed_go:
+    - GO:0043025
+    claimed_concept: neuronal cell body
+    real_identity: Vomeronasal type-1 receptor 4 (Pongo pygmaeus) — a real sensory-neuron
+      chemoreceptor, functionally consistent with the claim but no explicit subcellular-compartment
+      annotation in the record
+    evidence_accessions:
+    - Q7YRP2
+  743:
+    status: spurious
+    claimed_go:
+    - GO:0007271
+    claimed_concept: synaptic transmission, cholinergic
+    real_identity: Tetraspanin-13 (Mus musculus) — calcium channel regulator, unrelated
+    evidence_accessions:
+    - Q9D8C2
+  749:
+    status: spurious
+    claimed_go:
+    - GO:0047617
+    claimed_concept: fatty acyl-CoA hydrolase activity
+    real_identity: Aminoacyltransferase FemB (Staphylococcus aureus) — cell wall biosynthesis,
+      unrelated
+    evidence_accessions:
+    - Q2YXZ4
+  752:
+    status: plausible
+    claimed_go:
+    - GO:0004993
+    claimed_concept: G protein-coupled serotonin receptor activity
+    real_identity: Mu-type opioid receptor (Cavia porcellus) — a real GPCR (right
+      class), but the wrong specific ligand (opioid, not serotonin)
+    evidence_accessions:
+    - P97266
+  762:
+    status: spurious
+    claimed_go:
+    - GO:0042626
+    claimed_concept: ATPase-coupled transmembrane transporter activity
+    real_identity: 4-hydroxybenzoate octaprenyltransferase (Halorhodospira halophila)
+      — ubiquinone biosynthesis enzyme, not a transporter
+    evidence_accessions:
+    - A1WVM9
+  798:
+    status: confirmed
+    claimed_go:
+    - GO:0055085
+    claimed_concept: transmembrane transport
+    real_identity: O-antigen export system permease protein RfbA (Myxococcus xanthus),
+      GO:0140359 ABC-type transporter activity — a specific instance of transmembrane
+      transport
+    evidence_accessions:
+    - Q50862
+  832:
+    status: spurious
+    claimed_go:
+    - GO:0043885
+    claimed_concept: anaerobic carbon-monoxide dehydrogenase activity
+    real_identity: NADH-quinone oxidoreductase subunit B 2 (Acidithiobacillus ferrooxidans)
+      — aerobic respiration Complex I subunit, opposite metabolic context and different
+      enzyme
+    evidence_accessions:
+    - B5EN70
+  889:
+    status: spurious
+    claimed_go:
+    - GO:0005789
+    claimed_concept: endoplasmic reticulum membrane
+    real_identity: Uncharacterized protein HI_0318 (Haemophilus influenzae) — bacterial,
+      no ER exists in bacteria
+    evidence_accessions:
+    - P43984
+  971:
+    status: spurious
+    claimed_go:
+    - GO:0030424
+    claimed_concept: axon
+    real_identity: POU domain class 3 transcription factor 1 (Mus musculus) — nuclear
+      transcription factor (myelination-related, but nuclear, not axonal)
+    evidence_accessions:
+    - P21952
+  1059:
+    status: spurious
+    claimed_go:
+    - GO:0019888
+    claimed_concept: protein phosphatase regulator activity
+    real_identity: Peroxisomal targeting signal 2 receptor (Schizosaccharomyces pombe)
+      — unrelated
+    evidence_accessions:
+    - P78798
+  1093:
+    status: confirmed
+    claimed_go:
+    - GO:0000159
+    claimed_concept: protein phosphatase type 2A complex
+    real_identity: Serine/threonine-protein phosphatase PP2A 65 kDa regulatory subunit
+      (Drosophila melanogaster) — exact GO:0000159 match
+    evidence_accessions:
+    - P36179
+  1126:
+    status: spurious
+    claimed_go:
+    - GO:0005782
+    claimed_concept: peroxisomal matrix
+    real_identity: Alanine--tRNA ligase (Acholeplasma laidlawii) — cytosolic translation
+      machinery, unrelated
+    evidence_accessions:
+    - A9NGN9
+  1142:
+    status: spurious
+    claimed_go:
+    - GO:0042803
+    claimed_concept: protein homodimerization activity
+    real_identity: Molybdopterin synthase catalytic subunit (Aspergillus clavatus)
+      — forms a heterotetrameric complex with a distinct small subunit, not documented
+      as homodimerization
+    evidence_accessions:
+    - A1CJM9
+  1202:
+    status: spurious
+    claimed_go:
+    - GO:0005886
+    claimed_concept: plasma membrane
+    real_identity: Transcriptional regulator MraZ (Desulfitobacterium hafniense) —
+      cytoplasm/nucleoid DNA-binding protein, not membrane-associated
+    evidence_accessions:
+    - Q24TD7
+  1221:
+    status: spurious
+    claimed_go:
+    - GO:0005892
+    claimed_concept: acetylcholine-gated channel complex
+    real_identity: Potassium channel protein kcv (Paramecium bursaria Chlorella virus
+      1) — a different ion channel family, potassium-selective, not acetylcholine-gated
+    evidence_accessions:
+    - Q84568

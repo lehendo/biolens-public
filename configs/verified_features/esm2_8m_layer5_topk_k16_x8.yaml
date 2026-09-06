@@ -1,0 +1,298 @@
+# Verified/debunked SAE feature -> GO-term claims for the esm2_8m layer5
+# topk k16_x8 expansion-factor/k ablation checkpoint. Does artifact
+# severity scale with d_sae/k? Same verification methodology as the main four
+# registries -- see esm2_8m_layer5_topk_k32.yaml's header for the full
+# protocol.
+#
+# Round 1 (2026-07-28): 31 fresh candidates (mp10/mp20/mp100 -- mp50/150/
+# 200/300 exhausted), all verified against real UniProt records.
+# Result: 5 confirmed, 0 plausible, 22 spurious, 4 unverifiable (16%/0%/71%/13%).
+model: esm2_8m
+layer: 5
+sae_variant: topk
+k: 16
+features:
+  105:
+    claimed_concept: trans-feruloyl-CoA synthase activity
+    claimed_go:
+    - GO:0050563
+    evidence_accessions:
+    - A9AGA7
+    real_identity: tRNA dimethylallyltransferase (Burkholderia multivorans) — ATP
+      binding, tRNA modification
+    status: spurious
+  249:
+    claimed_concept: synaptic transmission, cholinergic
+    claimed_go:
+    - GO:0007271
+    evidence_accessions:
+    - Q2YDM3
+    real_identity: Membrane-spanning 4-domains subfamily A member 13 (Bos taurus)
+      — generic plasma membrane/cell surface receptor signaling, no cholinergic annotation
+    status: spurious
+  325:
+    claimed_concept: negative regulation of cell population proliferation
+    claimed_go:
+    - GO:0008285
+    evidence_accessions:
+    - P79291
+    real_identity: Delta-type opioid receptor (Sus scrofa) — GPCR/neuropeptide signaling,
+      no proliferation-regulation annotation
+    status: spurious
+  391:
+    claimed_concept: acetylcholine receptor inhibitor activity
+    claimed_go:
+    - GO:0030550
+    evidence_accessions:
+    - P02807
+    real_identity: Metallothionein (Neurospora crassa) — metal ion binding only
+    status: spurious
+  456:
+    claimed_concept: acyl-CoA metabolic process
+    claimed_go:
+    - GO:0006637
+    evidence_accessions:
+    - P95914
+    real_identity: Putative esterase SSO2140 (Saccharolobus solfataricus), GO:0047617
+      fatty acyl-CoA hydrolase activity — hydrolyzing acyl-CoA is definitionally an
+      acyl-CoA metabolic process (MF instance of the claimed BP term)
+    status: confirmed
+  506:
+    claimed_concept: host cell cytoplasm
+    claimed_go:
+    - GO:0030430
+    evidence_accessions:
+    - Q2NUD2
+    real_identity: Cytidine deaminase (Sodalis glossinidius, free-living bacterium)
+      — cytosol only, no host-pathogen context at all
+    status: spurious
+  557:
+    claimed_concept: L-aspartate:2-oxoglutarate transaminase activity
+    claimed_go:
+    - GO:0004069
+    evidence_accessions:
+    - K7VCB9
+    real_identity: Hydroxyethylthiazole kinase (Zea mays) — thiamine biosynthesis,
+      unrelated enzyme family
+    status: spurious
+  568:
+    claimed_concept: fatty acid biosynthetic process
+    claimed_go:
+    - GO:0006633
+    evidence_accessions:
+    - Q603G8
+    real_identity: Threonylcarbamoyl-AMP synthase (Methylococcus capsulatus) — tRNA
+      modification enzyme
+    status: spurious
+  608:
+    claimed_concept: abscisic acid biosynthetic process
+    claimed_go:
+    - GO:0009688
+    evidence_accessions:
+    - P55575
+    real_identity: Uncharacterized short-chain dehydrogenase/reductase y4mP (Sinorhizobium
+      fredii) — documented for fatty acid elongation, not ABA biosynthesis; same broad
+      oxidoreductase superfamily but a different specific pathway
+    status: spurious
+  660:
+    claimed_concept: positive regulation of transcription by RNA polymerase II
+    claimed_go:
+    - GO:0045944
+    evidence_accessions:
+    - Q8BS90
+    real_identity: Protein aurora borealis / Bora (Mus musculus) — mitotic/cell-division
+      regulator, protein kinase binding, no transcription annotation
+    status: spurious
+  898:
+    claimed_concept: signal transduction
+    claimed_go:
+    - GO:0007165
+    evidence_accessions:
+    - P35464
+    real_identity: Diuretic hormone receptor (Manduca sexta), GO:0007188 adenylate
+      cyclase-modulating GPCR signaling + GO:0007166 cell surface receptor signaling
+      — both child terms of the claimed signal transduction
+    status: confirmed
+  975:
+    claimed_concept: fatty acyl-CoA hydrolase activity
+    claimed_go:
+    - GO:0047617
+    evidence_accessions:
+    - P00135
+    real_identity: Cytochrome c3 (Maridesulfovibrio salexigens) — electron transfer/heme
+      protein, unrelated
+    status: spurious
+  1109:
+    claimed_concept: long-chain fatty acid-CoA ligase activity
+    claimed_go:
+    - GO:0004467
+    evidence_accessions:
+    - Q9ZE57
+    real_identity: Uncharacterized protein RP090 (Rickettsia prowazekii) — only annotation
+      is plasma membrane, no functional evidence either way
+    status: unverifiable
+  1355:
+    claimed_concept: transmembrane transporter binding
+    claimed_go:
+    - GO:0044325
+    evidence_accessions:
+    - P15845
+    real_identity: 20 kDa calcium-binding protein / myosin light chain (Schistosoma
+      mansoni) — myosin II complex, calcium binding, unrelated
+    status: spurious
+  1514:
+    claimed_concept: nucleotide-activated protein kinase complex (AMPK)
+    claimed_go:
+    - GO:0031588
+    evidence_accessions:
+    - Q58622
+    real_identity: Uncharacterized protein MJ1225 (Methanocaldococcus jannaschii)
+      — zero GO annotations
+    status: unverifiable
+  1605:
+    claimed_concept: extracellular region
+    claimed_go:
+    - GO:0005576
+    evidence_accessions:
+    - Q92044
+    real_identity: Metallothionein A (Cyprinodon sp.) — canonically intracellular
+      stress-response protein, no extracellular annotation
+    status: spurious
+  1621:
+    claimed_concept: regulation of DNA-templated transcription
+    claimed_go:
+    - GO:0006355
+    evidence_accessions:
+    - Q90683
+    real_identity: Transcription factor 4 / TCF4 (Gallus gallus), GO:0006351 DNA-templated
+      transcription + E-box binding — a transcription factor directly regulating transcription
+    status: confirmed
+  1675:
+    claimed_concept: acrosomal vesicle
+    claimed_go:
+    - GO:0001669
+    evidence_accessions:
+    - Q9PSN3
+    real_identity: Thrombin-like enzyme bilineobin (Agkistrodon bilineatus, snake
+      venom) — toxin/serine protease, no relationship to sperm biology
+    status: spurious
+  1722:
+    claimed_concept: fatty-acyl-CoA binding
+    claimed_go:
+    - GO:0000062
+    evidence_accessions:
+    - P20421
+    real_identity: Ice-structuring protein GS-5 (Myoxocephalus aenaeus) — zero GO
+      annotations
+    status: unverifiable
+  1816:
+    claimed_concept: enzyme binding
+    claimed_go:
+    - GO:0019899
+    evidence_accessions:
+    - Q5ZJX7
+    real_identity: Multivesicular body subunit 12A / MVB12A (Gallus gallus) — ESCRT-I
+      complex, SH3 domain binding (not specifically enzyme binding), protein transport
+    status: spurious
+  1875:
+    claimed_concept: presynaptic membrane
+    claimed_go:
+    - GO:0042734
+    evidence_accessions:
+    - P12490
+    real_identity: HIV-1 truncated surface (envelope) protein — viral envelope/virion
+      membrane, same confound family as the registry's existing HIV-gp120-vs-postsynaptic-membrane
+      worked example
+    status: spurious
+  1890:
+    claimed_concept: protein phosphatase type 2A complex
+    claimed_go:
+    - GO:0000159
+    evidence_accessions:
+    - Q6GMY9
+    real_identity: Exportin-2 (Xenopus laevis) — nuclear transport receptor, unrelated
+    status: spurious
+  1893:
+    claimed_concept: dendrite
+    claimed_go:
+    - GO:0030425
+    evidence_accessions:
+    - Q06342
+    real_identity: Basic juvenile hormone-suppressible protein 1 / hexamerin (Trichoplusia
+      ni) — extracellular nutrient storage protein, no relationship to neurons
+    status: spurious
+  1905:
+    claimed_concept: AMP-activated protein kinase activity
+    claimed_go:
+    - GO:0004679
+    evidence_accessions:
+    - O73792
+    real_identity: Tie-1 receptor tyrosine kinase (Danio rerio) — a TYROSINE kinase,
+      not serine/threonine AMPK; same generic-kinase-catalytic-domain confound already
+      documented for Tie-1 elsewhere in this project
+    status: spurious
+  1978:
+    claimed_concept: protein heterodimerization activity
+    claimed_go:
+    - GO:0046982
+    evidence_accessions:
+    - Q8I6R7
+    real_identity: Acanthoscurrin-2 (Acanthoscurria gomesiana, tarantula) — antimicrobial
+      peptide, innate immune response, unrelated
+    status: spurious
+  1991:
+    claimed_concept: UDP-glucosyltransferase activity
+    claimed_go:
+    - GO:0035251
+    evidence_accessions:
+    - Q40286
+    real_identity: Anthocyanidin 3-O-glucosyltransferase 4 (Manihot esculenta) — a
+      documented UDP-glucose-dependent glycosyltransferase (UGT family), the claimed
+      activity as a broader parent term
+    status: confirmed
+  2090:
+    claimed_concept: transmembrane transport
+    claimed_go:
+    - GO:0055085
+    evidence_accessions:
+    - O73706
+    real_identity: Voltage-dependent N-type calcium channel subunit alpha-1B (Gallus
+      gallus), GO:0005245 voltage-gated calcium channel activity — a specific instance
+      of transmembrane transport
+    status: confirmed
+  2105:
+    claimed_concept: nucleoplasm
+    claimed_go:
+    - GO:0005654
+    evidence_accessions:
+    - P13224
+    real_identity: Platelet glycoprotein Ib beta chain (Homo sapiens) — plasma membrane
+      receptor, not nuclear
+    status: spurious
+  2187:
+    claimed_concept: aconitate hydratase activity
+    claimed_go:
+    - GO:0003994
+    evidence_accessions:
+    - Q97LS5
+    real_identity: UPF0210 protein CA_C0479 (Clostridium acetobutylicum) — zero GO
+      annotations
+    status: unverifiable
+  2247:
+    claimed_concept: protein phosphatase regulator activity
+    claimed_go:
+    - GO:0019888
+    evidence_accessions:
+    - Q9C1X0
+    real_identity: Uncharacterized WD repeat protein C713.05 (Schizosaccharomyces
+      pombe) — spliceosome component, unrelated
+    status: spurious
+  2386:
+    claimed_concept: acetylcholine-gated monoatomic cation-selective channel activity
+    claimed_go:
+    - GO:0022848
+    evidence_accessions:
+    - Q5RF33
+    real_identity: Vacuolar protein sorting-associated protein 26C / VPS26C (Pongo
+      abelii) — endosomal sorting complex, unrelated
+    status: spurious

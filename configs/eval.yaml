@@ -1,0 +1,56 @@
+# Evaluation suite configuration.
+# All metrics apply identically across model families — this uniformity
+# is the core toolkit contribution.
+
+reconstruction:
+  batch_size: 1024
+  # Fraction of variance explained < 0 means worse than predicting the mean.
+  # A well-trained SAE should achieve fve > 0.9.
+  min_acceptable_fve: 0.8
+
+probing:
+  # GO term linear probing (methodology: Adams et al. 2024, InterPLM 2024)
+  min_positives: 50         # skip GO terms with fewer positive examples
+  max_go_terms: 500         # cap for runtime; sample most-common terms if exceeded
+  train_fraction: 0.8
+  n_jobs: -1                # -1 = all available CPUs for logistic regression
+  # AUROC thresholds for reporting
+  auroc_thresholds: [0.65, 0.70, 0.75, 0.80, 0.85]
+  # Phase 0 exit criterion: any single_feature_auroc > 0.7 for any GO term
+  phase0_exit_auroc: 0.70
+  # Selection-bias baselines — held-out and hard-negative AUROC alongside
+  # the naive max, per min_positives sweep point. Off by default (Phase 0
+  # exit-criterion runs don't need it); enabled explicitly via
+  # --held-out-baselines for the confirmatory sample-size sweep runs.
+  compute_held_out_baselines: false
+  held_out_fraction: 0.5    # fraction of the test split reserved for held-out estimation
+  min_hard_negatives: 10    # skip hard-negative AUROC below this many sibling negatives
+  # Sample-size sweep points (pre-specified before the confirmatory run,
+  # informed by the Phase 0 pilot)
+  sweep_min_positives: [10, 20, 50, 100, 150, 200, 300]
+
+causal:
+  # Single-model causal ablation (Phase 1)
+  n_steering_sequences: 100
+  top_k_features: 10
+  clamp_value: 20.0         # value to set a feature to during activation patching
+  batch_size: 16
+
+cross_model:
+  # Cross-modality causal mediation (Phase 2), using the Imai-Keele-Tingley
+  # framework (see biolens.eval.mediation)
+  aggregation_level: gene   # aggregate to gene/locus before cross-model comparison
+  mediation_n_bootstrap: 1000
+  mediation_confidence: 0.95
+  # Phase 2a exit criterion: Spearman r vs. raw-embedding baseline
+  min_held_out_loci: 500
+  wilcoxon_alpha: 0.05
+
+# Layers to probe for each model (early / mid / late)
+probe_layers:
+  esm2_8m:   [0, 2, 5]
+  esm2_35m:  [0, 5, 11]
+  esm2_150m: [0, 9, 29]
+  esm2_650m: [0, 11, 32]
+  evo2_7b:   [0, 8, 16, 31]
+  geneformer_12l: [0, 5, 11]

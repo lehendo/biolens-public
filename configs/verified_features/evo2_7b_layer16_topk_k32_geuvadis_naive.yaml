@@ -1,0 +1,999 @@
+features:
+  368:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000073169.9
+    - ENSG00000104611.7
+    n_claims: 2
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  1355:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000010270.9
+    - ENSG00000068305.12
+    - ENSG00000073803.9
+    - ENSG00000082781.6
+    - ENSG00000086062.7
+    - ENSG00000088826.12
+    - ENSG00000088832.10
+    - ENSG00000091490.6
+    - ENSG00000100596.2
+    n_claims: 9
+    match_rate: 0.0
+    reason: "claimed by 9 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  1436:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000025434.14
+    - ENSG00000104738.10
+    n_claims: 2
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  1931:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000042493.10
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  2006:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000018869.10
+    - ENSG00000065154.7
+    - ENSG00000101220.11
+    n_claims: 3
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  2964:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000010626.10
+    - ENSG00000013561.13
+    - ENSG00000023892.8
+    - ENSG00000031691.5
+    - ENSG00000049449.3
+    - ENSG00000070718.7
+    - ENSG00000079215.8
+    - ENSG00000081791.4
+    - ENSG00000085415.10
+    - ENSG00000088854.11
+    - ENSG00000089250.13
+    - ENSG00000100365.10
+    - ENSG00000100983.5
+    - ENSG00000101104.6
+    - ENSG00000104341.10
+    n_claims: 15
+    match_rate: 0.0
+    reason: "claimed by 15 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  3137:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000035862.7
+    - ENSG00000051596.5
+    - ENSG00000073849.10
+    - ENSG00000074416.8
+    - ENSG00000076067.6
+    - ENSG00000087157.11
+    - ENSG00000095794.14
+    - ENSG00000101161.6
+    - ENSG00000103148.9
+    - ENSG00000103227.12
+    n_claims: 10
+    match_rate: 0.0
+    reason: "claimed by 10 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  3244:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000001630.10
+    - ENSG00000007341.12
+    - ENSG00000011566.8
+    - ENSG00000013503.4
+    - ENSG00000049192.9
+    - ENSG00000054277.8
+    - ENSG00000060709.8
+    - ENSG00000064886.8
+    - ENSG00000068097.8
+    - ENSG00000079134.6
+    - ENSG00000082014.11
+    - ENSG00000086232.7
+    - ENSG00000086300.11
+    - ENSG00000096996.9
+    - ENSG00000100364.13
+    - ENSG00000101638.7
+    - ENSG00000103657.8
+    - ENSG00000104093.8
+    n_claims: 18
+    match_rate: 0.0
+    reason: "claimed by 18 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  3697:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000083454.16
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  3844:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000051620.5
+    - ENSG00000100577.14
+    n_claims: 2
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  4200:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000005882.6
+    - ENSG00000011105.7
+    - ENSG00000055163.14
+    - ENSG00000065600.8
+    - ENSG00000066185.8
+    - ENSG00000070831.11
+    - ENSG00000089327.8
+    - ENSG00000100297.7
+    n_claims: 8
+    match_rate: 0.0
+    reason: "claimed by 8 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  4578:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000072682.12
+    - ENSG00000086289.7
+    - ENSG00000101442.8
+    n_claims: 3
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  4587:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000093010.7
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  5731:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000015479.12
+    - ENSG00000040199.13
+    - ENSG00000056050.6
+    - ENSG00000070770.3
+    - ENSG00000073712.9
+    - ENSG00000077044.5
+    - ENSG00000080200.5
+    - ENSG00000092607.8
+    - ENSG00000093100.12
+    - ENSG00000101577.4
+    - ENSG00000102554.7
+    - ENSG00000102755.5
+    - ENSG00000104427.6
+    n_claims: 13
+    match_rate: 0.0
+    reason: "claimed by 13 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  6481:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000014257.11
+    - ENSG00000065559.7
+    - ENSG00000084070.6
+    - ENSG00000090376.4
+    - ENSG00000101574.9
+    - ENSG00000102743.8
+    n_claims: 6
+    match_rate: 0.0
+    reason: "claimed by 6 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  6862:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000065989.9
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  6931:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000100564.4
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  7030:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000065135.7
+    - ENSG00000090857.8
+    n_claims: 2
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  8397:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000055732.7
+    - ENSG00000085721.8
+    - ENSG00000103199.8
+    n_claims: 3
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  8492:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000000457.8
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  8566:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000084112.8
+    - ENSG00000099365.5
+    - ENSG00000101190.8
+    n_claims: 3
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  9172:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000065809.8
+    - ENSG00000074966.6
+    - ENSG00000077935.12
+    - ENSG00000078177.8
+    - ENSG00000086619.9
+    - ENSG00000104497.9
+    n_claims: 6
+    match_rate: 0.0
+    reason: "claimed by 6 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  9570:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000008517.12
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  9761:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000064199.2
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  9852:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000002549.7
+    - ENSG00000006695.5
+    - ENSG00000013016.10
+    - ENSG00000043514.9
+    - ENSG00000058085.9
+    - ENSG00000059122.12
+    - ENSG00000065613.9
+    - ENSG00000065621.8
+    - ENSG00000066027.4
+    - ENSG00000075234.12
+    - ENSG00000075975.11
+    - ENSG00000079257.3
+    - ENSG00000079739.9
+    - ENSG00000089127.7
+    - ENSG00000100376.7
+    - ENSG00000100385.8
+    - ENSG00000100413.12
+    - ENSG00000100422.9
+    - ENSG00000100592.10
+    - ENSG00000100997.12
+    - ENSG00000101216.6
+    - ENSG00000104213.7
+    n_claims: 22
+    match_rate: 0.0
+    reason: "claimed by 22 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  9937:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000069998.8
+    - ENSG00000089486.10
+    - ENSG00000100304.10
+    - ENSG00000101444.7
+    n_claims: 4
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  10022:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000003402.12
+    - ENSG00000006194.6
+    - ENSG00000046604.7
+    - ENSG00000049239.7
+    - ENSG00000063854.7
+    - ENSG00000064787.7
+    - ENSG00000066084.7
+    - ENSG00000066230.6
+    - ENSG00000072071.11
+    - ENSG00000073584.13
+    - ENSG00000075239.9
+    - ENSG00000076555.10
+    - ENSG00000078246.10
+    - ENSG00000079819.10
+    - ENSG00000081377.12
+    - ENSG00000089063.10
+    - ENSG00000089177.12
+    - ENSG00000090266.7
+    - ENSG00000099940.6
+    - ENSG00000100266.11
+    - ENSG00000100417.7
+    - ENSG00000100580.7
+    - ENSG00000102781.9
+    - ENSG00000103187.5
+    - ENSG00000103479.9
+    - ENSG00000104805.10
+    - ENSG00000104870.6
+    n_claims: 27
+    match_rate: 0.0
+    reason: "claimed by 27 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  10481:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000055950.12
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  11091:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000050393.6
+    - ENSG00000100099.14
+    - ENSG00000100994.7
+    - ENSG00000101596.8
+    n_claims: 4
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  11922:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000055211.7
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  11988:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000032742.12
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  12061:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000073969.13
+    - ENSG00000075643.3
+    - ENSG00000084636.11
+    n_claims: 3
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  12266:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000004660.10
+    - ENSG00000010278.6
+    - ENSG00000013288.4
+    - ENSG00000014164.5
+    - ENSG00000029534.14
+    - ENSG00000043143.14
+    - ENSG00000053918.10
+    - ENSG00000070444.8
+    - ENSG00000073350.8
+    - ENSG00000073670.7
+    - ENSG00000075043.12
+    - ENSG00000079337.10
+    - ENSG00000081059.14
+    - ENSG00000083457.6
+    - ENSG00000091622.10
+    - ENSG00000092758.10
+    - ENSG00000095321.10
+    - ENSG00000099282.4
+    - ENSG00000100031.14
+    - ENSG00000100147.8
+    - ENSG00000100311.12
+    - ENSG00000103034.10
+    n_claims: 22
+    match_rate: 0.0
+    reason: "claimed by 22 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  13268:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000008382.10
+    - ENSG00000026297.10
+    - ENSG00000031698.8
+    - ENSG00000053371.8
+    - ENSG00000057935.8
+    - ENSG00000063046.12
+    - ENSG00000065060.12
+    - ENSG00000067606.11
+    - ENSG00000068784.8
+    - ENSG00000071909.12
+    - ENSG00000077238.8
+    - ENSG00000077420.9
+    - ENSG00000079931.10
+    - ENSG00000085982.8
+    - ENSG00000089916.12
+    - ENSG00000090054.8
+    - ENSG00000101353.10
+    - ENSG00000101605.7
+    - ENSG00000102606.11
+    n_claims: 19
+    match_rate: 0.0
+    reason: "claimed by 19 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  13479:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000103540.12
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  14726:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000083807.4
+    - ENSG00000089876.7
+    n_claims: 2
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  15702:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000103811.10
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  17002:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000086544.1
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  17028:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000011422.6
+    - ENSG00000025772.7
+    - ENSG00000039650.4
+    - ENSG00000072042.8
+    - ENSG00000074219.8
+    - ENSG00000100162.10
+    n_claims: 6
+    match_rate: 0.0
+    reason: "claimed by 6 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  17305:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000076826.4
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  17497:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000011052.16
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  17670:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000006607.8
+    - ENSG00000008988.5
+    - ENSG00000054523.11
+    - ENSG00000054983.11
+    - ENSG00000055483.10
+    - ENSG00000065000.9
+    - ENSG00000065665.15
+    - ENSG00000074266.10
+    - ENSG00000074319.6
+    - ENSG00000074696.7
+    - ENSG00000076650.1
+    - ENSG00000077348.3
+    - ENSG00000079263.11
+    - ENSG00000079459.7
+    - ENSG00000079999.8
+    - ENSG00000082074.10
+    - ENSG00000086967.8
+    - ENSG00000087076.3
+    - ENSG00000088205.7
+    - ENSG00000089057.10
+    - ENSG00000089163.4
+    - ENSG00000089693.6
+    - ENSG00000090686.11
+    - ENSG00000095209.7
+    - ENSG00000100124.7
+    - ENSG00000100243.15
+    - ENSG00000101181.12
+    - ENSG00000102445.13
+    - ENSG00000103121.4
+    - ENSG00000104043.10
+    - ENSG00000104490.12
+    n_claims: 31
+    match_rate: 0.0
+    reason: "claimed by 31 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  17806:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000079335.13
+    - ENSG00000079691.13
+    - ENSG00000084444.9
+    - ENSG00000091436.12
+    - ENSG00000104361.5
+    n_claims: 5
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  17823:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000070731.4
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  17937:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000091542.7
+    - ENSG00000100427.11
+    - ENSG00000101363.8
+    n_claims: 3
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  18368:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000078795.12
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  19216:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000012124.9
+    - ENSG00000091527.11
+    n_claims: 2
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  19393:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000059588.5
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  20585:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000005700.10
+    - ENSG00000013374.10
+    - ENSG00000066654.8
+    - ENSG00000066855.10
+    - ENSG00000067533.5
+    - ENSG00000070371.11
+    - ENSG00000082212.6
+    - ENSG00000087237.6
+    - ENSG00000100473.10
+    - ENSG00000101057.11
+    - ENSG00000101191.11
+    - ENSG00000102595.12
+    n_claims: 12
+    match_rate: 0.0
+    reason: "claimed by 12 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  21733:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000013583.4
+    - ENSG00000088992.13
+    - ENSG00000104419.9
+    n_claims: 3
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  21798:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000049246.8
+    - ENSG00000054282.10
+    - ENSG00000064652.6
+    - ENSG00000065413.12
+    - ENSG00000101751.5
+    n_claims: 5
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  25312:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000104804.3
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  25424:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000049167.8
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  25758:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000067141.11
+    - ENSG00000074054.12
+    - ENSG00000091844.2
+    - ENSG00000100505.9
+    n_claims: 4
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  26278:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000011376.5
+    - ENSG00000025156.7
+    - ENSG00000041982.9
+    - ENSG00000059691.7
+    - ENSG00000064300.4
+    - ENSG00000065308.4
+    - ENSG00000066926.5
+    - ENSG00000068724.10
+    - ENSG00000072110.9
+    - ENSG00000076356.6
+    - ENSG00000091127.8
+    - ENSG00000101624.5
+    - ENSG00000103569.5
+    - ENSG00000104219.8
+    - ENSG00000104689.5
+    n_claims: 15
+    match_rate: 0.0
+    reason: "claimed by 15 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  26317:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000084623.7
+    - ENSG00000100504.11
+    - ENSG00000103510.14
+    - ENSG00000104951.10
+    n_claims: 4
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  27568:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000072756.12
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  28244:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000070061.10
+    - ENSG00000070759.11
+    - ENSG00000078142.4
+    - ENSG00000081665.7
+    - ENSG00000088808.11
+    - ENSG00000099785.5
+    - ENSG00000101000.3
+    - ENSG00000101752.6
+    - ENSG00000103056.7
+    - ENSG00000104321.5
+    n_claims: 10
+    match_rate: 0.0
+    reason: "claimed by 10 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  28256:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000020922.7
+    - ENSG00000035687.8
+    - ENSG00000039319.12
+    - ENSG00000063761.11
+    - ENSG00000067113.12
+    - ENSG00000070915.5
+    - ENSG00000072954.1
+    - ENSG00000091106.14
+    - ENSG00000096060.8
+    - ENSG00000103021.5
+    - ENSG00000103550.9
+    - ENSG00000104059.4
+    n_claims: 12
+    match_rate: 0.0
+    reason: "claimed by 12 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  28394:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000021300.7
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  28514:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000012779.5
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  28529:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000071894.9
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  28734:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000096717.7
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  29821:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000011638.6
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  29914:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000022556.10
+    - ENSG00000083828.8
+    - ENSG00000087008.10
+    - ENSG00000100290.2
+    n_claims: 4
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  30583:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000072818.6
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  30758:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000100744.10
+    n_claims: 1
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  31008:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000085491.11
+    - ENSG00000104442.5
+    n_claims: 2
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  31068:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000014138.4
+    - ENSG00000034677.7
+    - ENSG00000047579.13
+    - ENSG00000090372.7
+    - ENSG00000100368.8
+    n_claims: 5
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  31467:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000104055.10
+    - ENSG00000104883.2
+    n_claims: 2
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  31733:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000005156.5
+    - ENSG00000018699.7
+    - ENSG00000067057.10
+    - ENSG00000070476.10
+    - ENSG00000073578.10
+    - ENSG00000076248.4
+    - ENSG00000100722.12
+    - ENSG00000102699.5
+    n_claims: 8
+    match_rate: 0.0
+    reason: "claimed by 8 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  31898:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000036448.5
+    - ENSG00000064270.7
+    - ENSG00000075413.12
+    - ENSG00000081052.10
+    - ENSG00000085871.4
+    - ENSG00000100721.6
+    n_claims: 6
+    match_rate: 0.0
+    reason: "claimed by 6 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  32046:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000028528.10
+    - ENSG00000070540.7
+    - ENSG00000100154.10
+    n_claims: 3
+    match_rate: 0.0
+    reason: none of the top-activating windows genome-wide fall within any claimed
+      gene
+    matched_windows: []
+  32182:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000011295.7
+    - ENSG00000041802.6
+    - ENSG00000052126.9
+    - ENSG00000077097.8
+    - ENSG00000084754.6
+    - ENSG00000087299.6
+    - ENSG00000100360.10
+    - ENSG00000101052.8
+    n_claims: 8
+    match_rate: 0.0
+    reason: "claimed by 8 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []
+  32744:
+    status: spurious
+    claimed_gene_ids:
+    - ENSG00000027001.7
+    - ENSG00000029639.6
+    - ENSG00000032219.14
+    - ENSG00000062194.10
+    - ENSG00000071967.7
+    - ENSG00000079785.8
+    - ENSG00000085382.7
+    - ENSG00000089737.10
+    - ENSG00000096872.10
+    - ENSG00000099956.12
+    - ENSG00000100321.10
+    n_claims: 11
+    match_rate: 0.0
+    reason: "claimed by 11 different genes (> 5) \u2014 too promiscuous to be specifically\
+      \ about any one of them"
+    matched_windows: []

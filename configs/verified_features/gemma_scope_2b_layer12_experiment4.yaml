@@ -1,0 +1,231 @@
+model: gemma-2-2b
+sae_release: gemma-scope-2b-pt-res
+sae_id: layer_12/width_16k/average_l0_82
+layer: 12
+features:
+  1128:
+    claimed_concept: professor
+    claimed_go:
+    - profession_21
+    evidence_example_ids:
+    - biobio_10445
+    - biobio_10361
+    - biobio_16976
+    - biobio_8735
+    - biobio_4954
+  2620:
+    claimed_concept: 'dentist (feature ALSO claimed by: physician)'
+    claimed_go:
+    - profession_19
+    - profession_6
+    evidence_example_ids:
+    - biobio_7949
+    - biobio_18737
+    - biobio_9623
+    - biobio_8465
+    - biobio_14621
+  2735:
+    claimed_concept: 'attorney (feature ALSO claimed by: paralegal)'
+    claimed_go:
+    - profession_15
+    - profession_2
+    evidence_example_ids:
+    - biobio_17902
+    - biobio_13287
+    - biobio_1262
+    - biobio_10395
+    - biobio_15954
+  2291:
+    claimed_concept: 'architect (feature ALSO claimed by: photographer)'
+    claimed_go:
+    - profession_1
+    - profession_18
+    evidence_example_ids:
+    - biobio_3660
+    - biobio_11702
+    - biobio_5513
+    - biobio_1801
+    - biobio_17516
+  11280:
+    claimed_concept: journalist
+    claimed_go:
+    - profession_11
+    evidence_example_ids:
+    - biobio_2505
+    - biobio_12349
+    - biobio_9924
+    - biobio_4879
+    - biobio_15680
+  11114:
+    claimed_concept: 'dietitian (feature ALSO claimed by: model, nurse)'
+    claimed_go:
+    - profession_12
+    - profession_13
+    - profession_7
+    evidence_example_ids:
+    - biobio_331
+    - biobio_12518
+    - biobio_18043
+    - biobio_9458
+    - biobio_11245
+  7517:
+    claimed_concept: psychologist
+    claimed_go:
+    - profession_22
+    evidence_example_ids:
+    - biobio_15735
+    - biobio_15835
+    - biobio_328
+    - biobio_12517
+    - biobio_6479
+  15777:
+    claimed_concept: 'composer (feature ALSO claimed by: teacher)'
+    claimed_go:
+    - profession_26
+    - profession_5
+    evidence_example_ids:
+    - biobio_2297
+    - biobio_5739
+    - biobio_4380
+    - biobio_3991
+    - biobio_2240
+  5364:
+    claimed_concept: surgeon
+    claimed_go:
+    - profession_25
+    evidence_example_ids:
+    - biobio_12412
+    - biobio_14058
+    - biobio_8597
+    - biobio_2213
+    - biobio_3936
+  5416:
+    claimed_concept: poet
+    claimed_go:
+    - profession_20
+    evidence_example_ids:
+    - biobio_7480
+    - biobio_12840
+    - biobio_17800
+    - biobio_19848
+    - biobio_11919
+  4821:
+    claimed_concept: painter
+    claimed_go:
+    - profession_14
+    evidence_example_ids:
+    - biobio_12138
+    - biobio_7750
+    - biobio_13938
+    - biobio_9056
+    - biobio_12458
+  4113:
+    claimed_concept: filmmaker
+    claimed_go:
+    - profession_9
+    evidence_example_ids:
+    - biobio_801
+    - biobio_6697
+    - biobio_12250
+    - biobio_12119
+    - biobio_12085
+  14754:
+    claimed_concept: software_engineer
+    claimed_go:
+    - profession_24
+    evidence_example_ids:
+    - biobio_17349
+    - biobio_16651
+    - biobio_12123
+    - biobio_8669
+    - biobio_3079
+  9136:
+    claimed_concept: accountant
+    claimed_go:
+    - profession_0
+    evidence_example_ids:
+    - biobio_17168
+    - biobio_17434
+    - biobio_9462
+    - biobio_5186
+    - biobio_3090
+  4374:
+    claimed_concept: comedian
+    claimed_go:
+    - profession_4
+    evidence_example_ids:
+    - biobio_8068
+    - biobio_12542
+    - biobio_19218
+    - biobio_6913
+    - biobio_1683
+  11196:
+    claimed_concept: chiropractor
+    claimed_go:
+    - profession_3
+    evidence_example_ids:
+    - biobio_6211
+    - biobio_6463
+    - biobio_5070
+    - biobio_11201
+    - biobio_9934
+  4083:
+    claimed_concept: pastor
+    claimed_go:
+    - profession_16
+    evidence_example_ids:
+    - biobio_4834
+    - biobio_816
+    - biobio_12298
+    - biobio_19877
+    - biobio_687
+  3218:
+    claimed_concept: yoga_teacher
+    claimed_go:
+    - profession_27
+    evidence_example_ids:
+    - biobio_15126
+    - biobio_15062
+    - biobio_1213
+    - biobio_9924
+    - biobio_8755
+  1685:
+    claimed_concept: personal_trainer
+    claimed_go:
+    - profession_17
+    evidence_example_ids:
+    - biobio_1662
+    - biobio_2328
+    - biobio_2577
+    - biobio_18882
+    - biobio_15835
+  11498:
+    claimed_concept: dj
+    claimed_go:
+    - profession_8
+    evidence_example_ids:
+    - biobio_2868
+    - biobio_16908
+    - biobio_12349
+    - biobio_16764
+    - biobio_437
+  9269:
+    claimed_concept: rapper
+    claimed_go:
+    - profession_23
+    evidence_example_ids:
+    - biobio_2290
+    - biobio_8644
+    - biobio_15735
+    - biobio_15725
+    - biobio_15706
+  5052:
+    claimed_concept: interior_designer
+    claimed_go:
+    - profession_10
+    evidence_example_ids:
+    - biobio_2297
+    - biobio_2185
+    - biobio_8300
+    - biobio_15706
+    - biobio_17892

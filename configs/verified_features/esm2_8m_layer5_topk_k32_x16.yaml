@@ -1,0 +1,307 @@
+# Verified/debunked SAE feature -> GO-term claims for the esm2_8m layer5
+# topk k32_x16 expansion-factor/k ablation checkpoint. Does artifact
+# severity scale with d_sae/k? Same verification methodology as the main four
+# registries -- see esm2_8m_layer5_topk_k32.yaml's header for the full
+# protocol.
+#
+# Round 1 (2026-07-29): 32 fresh candidates (mp10/mp20/mp100 -- mp50/150/
+# 200/300 exhausted), all verified against real UniProt records.
+# Result: 9 confirmed, 1 plausible, 17 spurious, 5 unverifiable (28%/3%/53%/16%).
+model: esm2_8m
+layer: 5
+sae_variant: topk
+k: 32
+features:
+  174:
+    status: confirmed
+    claimed_go:
+    - GO:0035251
+    claimed_concept: UDP-glucosyltransferase activity
+    real_identity: Anthocyanidin 3-O-glucosyltransferase 7 (Manihot esculenta) — a
+      UDP-glucose-dependent glycosyltransferase (UGT family)
+    evidence_accessions:
+    - Q40289
+  239:
+    status: spurious
+    claimed_go:
+    - GO:0022848
+    claimed_concept: acetylcholine-gated monoatomic cation-selective channel activity
+    real_identity: Innexin-5 (Caenorhabditis elegans) — gap junction channel protein,
+      a different channel family not gated by acetylcholine
+    evidence_accessions:
+    - Q23027
+  386:
+    status: spurious
+    claimed_go:
+    - GO:0005576
+    claimed_concept: extracellular region
+    real_identity: Keratin-associated protein 17-1 (Homo sapiens) — cytosol, intermediate
+      filament, intracellular structural protein
+    evidence_accessions:
+    - Q9BYP8
+  778:
+    status: unverifiable
+    claimed_go:
+    - GO:0047617
+    claimed_concept: fatty acyl-CoA hydrolase activity
+    real_identity: Hexose transport activator protein (Saccharomyces cerevisiae) —
+      zero GO annotations
+    evidence_accessions:
+    - P29589
+  786:
+    status: confirmed
+    claimed_go:
+    - GO:0031588
+    claimed_concept: nucleotide-activated protein kinase complex (AMPK)
+    real_identity: 5'-AMP-activated protein kinase subunit gamma (Saccharomyces cerevisiae)
+      — exact GO:0031588 match
+    evidence_accessions:
+    - P12904
+  895:
+    status: unverifiable
+    claimed_go:
+    - GO:0016907
+    claimed_concept: G protein-coupled acetylcholine receptor activity
+    real_identity: Phomoidride biosynthesis cluster protein H (fungal) — only annotation
+      is generic membrane, no functional evidence either way
+    evidence_accessions:
+    - A0A348HAY3
+  1112:
+    status: unverifiable
+    claimed_go:
+    - GO:0003994
+    claimed_concept: aconitate hydratase activity
+    real_identity: UPF0210 protein CA_C0479 (Clostridium acetobutylicum) — zero GO
+      annotations
+    evidence_accessions:
+    - Q97LS5
+  1147:
+    status: plausible
+    claimed_go:
+    - GO:0047580
+    claimed_concept: 4-hydroxyproline epimerase activity
+    real_identity: Diaminopimelate epimerase (Vesicomyosocius okutanii) — right general
+      mechanism (PLP-independent two-base epimerization), wrong specific substrate
+      (diaminopimelate/lysine biosynthesis, not hydroxyproline)
+    evidence_accessions:
+    - A5CWN5
+  1321:
+    status: spurious
+    claimed_go:
+    - GO:0009688
+    claimed_concept: abscisic acid biosynthetic process
+    real_identity: Short-chain dehydrogenase/reductase homolog YusR (Bacillus subtilis)
+      — documented for fatty acid elongation, not ABA biosynthesis; same broad oxidoreductase
+      superfamily, different specific pathway
+    evidence_accessions:
+    - O32184
+  1327:
+    status: spurious
+    claimed_go:
+    - GO:0001669
+    claimed_concept: acrosomal vesicle
+    real_identity: Vitamin K-dependent protein C (Macaca mulatta) — blood coagulation
+      factor, unrelated to sperm biology
+    evidence_accessions:
+    - Q28506
+  1476:
+    status: spurious
+    claimed_go:
+    - GO:0004069
+    claimed_concept: L-aspartate:2-oxoglutarate transaminase activity
+    real_identity: Glutathione S-transferase Mu 5 (Rattus norvegicus) — unrelated
+      enzyme family
+    evidence_accessions:
+    - Q9Z1B2
+  1566:
+    status: confirmed
+    claimed_go:
+    - GO:0005634
+    claimed_concept: nucleus
+    real_identity: DNA polymerase epsilon subunit D (Candida glabrata), GO:0043596
+      nuclear replication fork — a specific nuclear sub-location
+    evidence_accessions:
+    - Q6FXD0
+  1772:
+    status: spurious
+    claimed_go:
+    - GO:0042734
+    claimed_concept: presynaptic membrane
+    real_identity: Allergen Cr-PI (Periplaneta americana, cockroach) — extracellular
+      nutrient reservoir protein, unrelated to neurons
+    evidence_accessions:
+    - Q25641
+  2178:
+    status: confirmed
+    claimed_go:
+    - GO:0000159
+    claimed_concept: protein phosphatase type 2A complex
+    real_identity: Serine/threonine-protein phosphatase PP2A 65 kDa regulatory subunit
+      (Drosophila melanogaster) — exact GO:0000159 match
+    evidence_accessions:
+    - P36179
+  2183:
+    status: spurious
+    claimed_go:
+    - GO:0030425
+    claimed_concept: dendrite
+    real_identity: Squamosa promoter-binding-like protein 5 (Oryza sativa, rice) —
+      plant transcription factor, unrelated
+    evidence_accessions:
+    - Q0E3F8
+  2579:
+    status: spurious
+    claimed_go:
+    - GO:0004679
+    claimed_concept: AMP-activated protein kinase activity
+    real_identity: Ephrin type-A receptor 4a (Danio rerio) — a receptor TYROSINE kinase,
+      not serine/threonine AMPK; same generic-kinase-catalytic-domain confound already
+      documented for Ephrin receptors elsewhere in this project
+    evidence_accessions:
+    - O13148
+  2602:
+    status: confirmed
+    claimed_go:
+    - GO:0006637
+    claimed_concept: acyl-CoA metabolic process
+    real_identity: 4-hydroxybenzoyl-CoA thioesterase (Arthrobacter globiformis) —
+      hydrolyzes an acyl-CoA thioester, definitionally an acyl-CoA metabolic process
+    evidence_accessions:
+    - Q7BI34
+  2879:
+    status: spurious
+    claimed_go:
+    - GO:0019888
+    claimed_concept: protein phosphatase regulator activity
+    real_identity: Peroxisomal targeting signal type 2 receptor (Arabidopsis thaliana)
+      — unrelated
+    evidence_accessions:
+    - Q9XF57
+  3104:
+    status: spurious
+    claimed_go:
+    - GO:0007584
+    claimed_concept: response to nutrient
+    real_identity: Jasmonoyl--L-amino acid synthetase GH3.5 (Oryza sativa) — defense/hormone
+      response, not nutrient response
+    evidence_accessions:
+    - Q6I581
+  3229:
+    status: unverifiable
+    claimed_go:
+    - GO:0044877
+    claimed_concept: protein-containing complex binding
+    real_identity: Putative uncharacterized protein DDB_G0293418 (Dictyostelium discoideum)
+      — zero GO annotations
+    evidence_accessions:
+    - Q54BU6
+  3234:
+    status: confirmed
+    claimed_go:
+    - GO:0006355
+    claimed_concept: regulation of DNA-templated transcription
+    real_identity: Transcriptional activator FHA1 (Nicotiana tabacum) — exact GO:0006355
+      match
+    evidence_accessions:
+    - Q945P0
+  3475:
+    status: spurious
+    claimed_go:
+    - GO:0044325
+    claimed_concept: transmembrane transporter binding
+    real_identity: Myosin light chain 1 (Procambarus clarkii) — muscle contractile
+      protein, calcium binding, unrelated
+    evidence_accessions:
+    - J7HCX7
+  3623:
+    status: spurious
+    claimed_go:
+    - GO:0009414
+    claimed_concept: response to water deprivation
+    real_identity: Cytochrome P450 2A11 (Oryctolagus cuniculus) — xenobiotic metabolism
+      enzyme, unrelated
+    evidence_accessions:
+    - Q05556
+  3858:
+    status: unverifiable
+    claimed_go:
+    - GO:0045211
+    claimed_concept: postsynaptic membrane
+    real_identity: Myeloid-associated differentiation marker-like protein 2 (Bos taurus)
+      — only generic 'membrane' annotation, no neuronal-specific evidence
+    evidence_accessions:
+    - Q08DL4
+  4153:
+    status: spurious
+    claimed_go:
+    - GO:0005782
+    claimed_concept: peroxisomal matrix
+    real_identity: Flagellar basal body rod protein FlgB (Bacillus subtilis) — bacterial,
+      no peroxisomes exist in bacteria at all
+    evidence_accessions:
+    - P24500
+  4328:
+    status: confirmed
+    claimed_go:
+    - GO:0007165
+    claimed_concept: signal transduction
+    real_identity: Olfactory receptor 2D2 (Homo sapiens), a GPCR — GPCR activity is
+      a documented instance of signal transduction
+    evidence_accessions:
+    - Q9H210
+  4818:
+    status: spurious
+    claimed_go:
+    - GO:0050563
+    claimed_concept: trans-feruloyl-CoA synthase activity
+    real_identity: Putative galacturan 1,4-alpha-galacturonidase A (Aspergillus flavus)
+      — pectin-degrading enzyme, unrelated pathway
+    evidence_accessions:
+    - B8NJB0
+  4843:
+    status: confirmed
+    claimed_go:
+    - GO:0055085
+    claimed_concept: transmembrane transport
+    real_identity: Solute carrier organic anion transporter family member 2A1 (Rattus
+      norvegicus), GO:0015132 prostaglandin transmembrane transporter activity — a
+      specific instance of transmembrane transport
+    evidence_accessions:
+    - Q00910
+  4859:
+    status: confirmed
+    claimed_go:
+    - GO:0004993
+    claimed_concept: G protein-coupled serotonin receptor activity
+    real_identity: Beta-3 adrenergic receptor (Canis lupus familiaris) — real UniProt
+      record directly lists exact GO:0004993 match (documented cross-annotation on
+      this specific record)
+    evidence_accessions:
+    - O02662
+  4921:
+    status: spurious
+    claimed_go:
+    - GO:0046982
+    claimed_concept: protein heterodimerization activity
+    real_identity: Protein pygopus (Drosophila melanogaster) — Wnt-signaling transcriptional
+      coactivator, no documented heterodimerization-activity annotation
+    evidence_accessions:
+    - Q9V9W8
+  5074:
+    status: spurious
+    claimed_go:
+    - GO:0045944
+    claimed_concept: positive regulation of transcription by RNA polymerase II
+    real_identity: Keratin-associated protein 13-1 (Homo sapiens) — structural protein,
+      unrelated
+    evidence_accessions:
+    - Q8IUC0
+  5111:
+    status: spurious
+    claimed_go:
+    - GO:0005654
+    claimed_concept: nucleoplasm
+    real_identity: Lymphocyte activation gene 3 protein / LAG3 (Homo sapiens) — cell-surface
+      immune checkpoint receptor, not nuclear
+    evidence_accessions:
+    - P18627
